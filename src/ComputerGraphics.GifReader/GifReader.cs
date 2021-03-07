@@ -10,11 +10,11 @@ namespace ComputerGraphics.GifReader
     [ImageReader("gif")]
     public class GifReader : IImageReader
     {
-        public async Task<List<Color>> ReadAsync(string filename)
+        public async Task<List<RgbColor>> ReadAsync(string filename)
         {
             var bytes = await File.ReadAllBytesAsync(filename);
             // TODO: implementation
-            return new List<Color>();
+            return new List<RgbColor>();
         }
     }
 }

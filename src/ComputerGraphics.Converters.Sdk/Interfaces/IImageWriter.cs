@@ -6,6 +6,6 @@ namespace ComputerGraphics.Converters.Sdk.Interfaces
 {
     public interface IImageWriter
     {
-        Task WriteAsync(string path, List<Color> colors);
+        Task WriteAsync(string path, List<RgbColor> colors);
     }
 }
