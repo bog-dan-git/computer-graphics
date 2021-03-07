@@ -7,8 +7,8 @@
 
     <ItemGroup>
       <ProjectReference Include="..\ComputerGraphics.Converters.Sdk\ComputerGraphics.Converters.Sdk.csproj" />
-      <ProjectReference Include="..\ComputerGraphics.GifReader\ComputerGraphics.GifReader.csproj" />
-      <ProjectReference Include="..\ComputerGraphics.JpegWriter\ComputerGraphics.JpegWriter.csproj" />
+      <ProjectReference Include="..\ComputerGraphics.Gif\ComputerGraphics.Gif.csproj" />
+      <ProjectReference Include="..\ComputerGraphics.Jpeg\ComputerGraphics.Jpeg.csproj" />
     </ItemGroup>
 
 </Project>

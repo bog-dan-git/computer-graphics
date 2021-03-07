@@ -1,4 +1,4 @@
-﻿namespace ComputerGraphics.GifReader
+﻿namespace ComputerGraphics.Gif
 {
     public struct GifHeader
     {

@@ -5,7 +5,7 @@ using ComputerGraphics.Converters.Sdk;
 using ComputerGraphics.Converters.Sdk.Interfaces;
 using ComputerGraphics.Converters.Sdk.Model;
 
-namespace ComputerGraphics.JpegWriter
+namespace ComputerGraphics.Jpeg
 {
     [ImageWriter("jpg")]
     public class JpegWriter : IImageWriter

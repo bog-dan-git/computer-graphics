@@ -1,12 +1,14 @@
-﻿using System;
+﻿using System.Threading.Tasks;
+using ComputerGraphics.Gif;
 
 namespace ComputerGraphics.ConsoleApp
 {
     public static class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            Console.WriteLine("Hello, world");
+            var gifReader = new GifReader();
+            await gifReader.ReadAsync("filename.gif");
         }
     }
 }
