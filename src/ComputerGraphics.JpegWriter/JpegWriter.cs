@@ -10,10 +10,13 @@ namespace ComputerGraphics.JpegWriter
     [ImageWriter("jpg")]
     public class JpegWriter : IImageWriter
     {
-        public async Task WriteAsync(List<Color> colors, string outputFile)
+        public async Task WriteAsync(string path, List<Color> colors)
         {
             var result = new List<byte>();
-            await File.WriteAllBytesAsync(outputFile, result.ToArray());
+            
+            // TODO: implementation
+            
+            await File.WriteAllBytesAsync(path, result.ToArray());
         }
     }
 }

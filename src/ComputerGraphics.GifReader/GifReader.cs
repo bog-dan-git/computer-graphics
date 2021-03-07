@@ -12,8 +12,9 @@ namespace ComputerGraphics.GifReader
     {
         public async Task<List<Color>> ReadAsync(string filename)
         {
-            byte[] bytes = await File.ReadAllBytesAsync(filename);            
-            return new();
+            var bytes = await File.ReadAllBytesAsync(filename);
+            // TODO: implementation
+            return new List<Color>();
         }
     }
 }
