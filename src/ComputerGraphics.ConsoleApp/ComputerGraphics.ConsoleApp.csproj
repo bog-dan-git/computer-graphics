@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <OutputType>exe</OutputType>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ComputerGraphics.Converters.Sdk\ComputerGraphics.Converters.Sdk.csproj" />
+      <ProjectReference Include="..\ComputerGraphics.GifReader\ComputerGraphics.GifReader.csproj" />
+      <ProjectReference Include="..\ComputerGraphics.JpegWriter\ComputerGraphics.JpegWriter.csproj" />
+    </ItemGroup>
+
+</Project>
