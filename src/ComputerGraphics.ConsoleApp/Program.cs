@@ -6,7 +6,8 @@ namespace ComputerGraphics.ConsoleApp
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Hello, world");
+            var gifReader = new GifReader.GifReader();
+            gifReader.ReadAsync("screen2.gif");
         }
     }
 }
