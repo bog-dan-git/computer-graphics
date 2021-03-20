@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using ComputerGraphics.Gif;
+using System.Threading.Tasks;
 
 namespace ComputerGraphics.ConsoleApp
 {
@@ -7,8 +6,8 @@ namespace ComputerGraphics.ConsoleApp
     {
         public static async Task Main(string[] args)
         {
-            var gifReader = new GifReader();
-            await gifReader.ReadAsync("filename.gif");
+            var gifReader = new Gif.GifReader();
+            await gifReader.ReadAsync("ph.gif");
         }
     }
 }

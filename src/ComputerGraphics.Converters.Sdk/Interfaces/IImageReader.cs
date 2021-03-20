@@ -7,6 +7,6 @@ namespace ComputerGraphics.Converters.Sdk.Interfaces
 {
     public interface IImageReader
     {
-        public Task<List<RgbColor>> ReadAsync(string filename);
+        public Task<RgbColor[][]> ReadAsync(string filename);
     }
 }
