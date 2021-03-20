@@ -5,20 +5,20 @@ using ComputerGraphics.Converters.Sdk;
 using ComputerGraphics.Converters.Sdk.Interfaces;
 using ComputerGraphics.Converters.Sdk.Model;
 
-namespace ComputerGraphics.JpegWriter
+namespace ComputerGraphics.Jpeg
 {
     [ImageWriter("jpg")]
     public class JpegWriter : IImageWriter
     {
-        public async Task WriteAsync(List<RgbColor> colors, string outputFile)
+
+        public async Task WriteAsync(string path, List<RgbColor> colors)
         {
             var result = new List<byte>();
-            await File.WriteAllBytesAsync(outputFile, result.ToArray());
+            
+            // TODO: implementation
+            
+            await File.WriteAllBytesAsync(path, result.ToArray());
         }
 
-        public Task WriteAsync(string path, List<RgbColor> colors)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

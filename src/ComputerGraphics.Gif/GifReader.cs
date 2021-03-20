@@ -7,8 +7,9 @@ using ComputerGraphics.Converters.Sdk;
 using ComputerGraphics.Converters.Sdk.Interfaces;
 using ComputerGraphics.Converters.Sdk.Model;
 using ComputerGraphics.Gif;
+using ComputerGraphics.GifReader;
 
-namespace ComputerGraphics.GifReader
+namespace ComputerGraphics.Gif
 {
     [ImageReader("gif")]
     public class GifReader : IImageReader

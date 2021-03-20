@@ -6,9 +6,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B3045509
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputerGraphics.Converters.Sdk", "src\ComputerGraphics.Converters.Sdk\ComputerGraphics.Converters.Sdk.csproj", "{C7D1B67B-EA61-4E48-9B3D-CC7417A38B68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputerGraphics.JpegWriter", "src\ComputerGraphics.JpegWriter\ComputerGraphics.JpegWriter.csproj", "{EE52DF68-74CC-4334-8393-3B1F6D8D1003}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputerGraphics.Jpeg", "src\ComputerGraphics.Jpeg\ComputerGraphics.Jpeg.csproj", "{EE52DF68-74CC-4334-8393-3B1F6D8D1003}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputerGraphics.GifReader", "src\ComputerGraphics.GifReader\ComputerGraphics.GifReader.csproj", "{5507085A-CCE2-4036-AB71-B2BA0A611EE2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputerGraphics.Gif", "src\ComputerGraphics.Gif\ComputerGraphics.Gif.csproj", "{5507085A-CCE2-4036-AB71-B2BA0A611EE2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputerGraphics.ConsoleApp", "src\ComputerGraphics.ConsoleApp\ComputerGraphics.ConsoleApp.csproj", "{B8E360D9-F09A-4AF1-A2AF-AE23BF55FA27}"
 EndProject
