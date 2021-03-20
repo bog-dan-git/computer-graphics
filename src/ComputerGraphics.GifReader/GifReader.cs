@@ -34,10 +34,15 @@ namespace ComputerGraphics.GifReader
             _imageDescriptor = ReadImageDescriptor();
             
             OutputFileDescription();
-
+            
             if (_imageDescriptor.LocalColorTableIsPresent)
             {
-                throw new InvalidFormatException();
+                throw new AnimationUnsupportedException();
+            }
+            
+            if (_imageDescriptor.Interlaced)
+            {
+                throw new InterlacedUnsupportedException();
             }
             
             var minCodeLength = ReadBytes(1)[0] + 1;
