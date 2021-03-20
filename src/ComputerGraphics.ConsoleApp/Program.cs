@@ -1,13 +1,15 @@
 ﻿using System;
+using System.Collections;
+using System.Threading.Tasks;
 
 namespace ComputerGraphics.ConsoleApp
 {
     public static class Program
     {
-        public static void Main(string[] args)
-        {
+        public static async Task Main(string[] args)
+        { 
             var gifReader = new GifReader.GifReader();
-            gifReader.ReadAsync("screen2.gif");
+            await gifReader.ReadAsync("verylarge.gif");
         }
     }
 }

@@ -32,9 +32,14 @@ namespace ComputerGraphics.GifReader
 
             SkipToByte(0x2C);
             _imageDescriptor = ReadImageDescriptor();
-
+            
             OutputFileDescription();
 
+            if (_imageDescriptor.LocalColorTableIsPresent)
+            {
+                throw new InvalidFormatException();
+            }
+            
             var minCodeLength = ReadBytes(1)[0] + 1;
             var sectionLength = ReadBytes(1)[0];
             var compressedData = new List<byte>();
@@ -49,7 +54,7 @@ namespace ComputerGraphics.GifReader
             var colorIndexList = decompressor.Decompress(compressedData, minCodeLength, _globalColorTable);
 
             var resultArray = FormPixelTable(colorIndexList);
-            //ToPpm(resultArray, "out.ppm");
+            // ToPpm(resultArray, "verylarge.ppm");
 
             
             /*Console.WriteLine("----------\nCells number: " + colorIndexList.Count);
@@ -117,7 +122,7 @@ namespace ComputerGraphics.GifReader
                 (System.Text.Encoding.UTF8.GetString(header.Version) != "87a" &&
                  System.Text.Encoding.UTF8.GetString(header.Version) != "89a"))
             {
-                throw new Exception();
+                throw new InvalidFormatException();
             }
 
             var widthBytes = ReadBytes(2);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using ComputerGraphics.Converters.Sdk.Model;
@@ -7,7 +8,7 @@ namespace ComputerGraphics.Gif
 {
     public class GifLzvDecompressor
     {
-        private string _compressedDataString;
+        private BitArray _compressedData;
         private int _codeLength;
         private Dictionary<int, List<int>> _dictionary;
         private int _clearCell;
@@ -18,22 +19,22 @@ namespace ComputerGraphics.Gif
         
         public List<int> Decompress(List<byte> compressedData, int minCodeLength, Dictionary<int, RgbColor> baseDictionary)
         {
-            _compressedDataString = ByteListToString(compressedData);
-            _currentBit = _compressedDataString.Length;
+            _compressedData = new BitArray(compressedData.ToArray());
+            _currentBit = 0;
             InitDictionary(baseDictionary, minCodeLength);
             _colorIndexes = new List<int>();
 
             
-            var code = GetNextCodeFromString();
+            var code = GetNextCode();
             if (code != _clearCell)
             {
                 throw new Exception();
             }
             
-            code = GetNextCodeFromString();
+            code = GetNextCode();
             _colorIndexes.Add(code);
             var lastCode = code;
-            code = GetNextCodeFromString();
+            code = GetNextCode();
             
             var resultColorList = new List<int>();
 
@@ -70,13 +71,13 @@ namespace ComputerGraphics.Gif
                 {
                     resultColorList.AddRange(FormColorList());
                     InitDictionary(baseDictionary, minCodeLength);
-                    code = GetNextCodeFromString();
+                    code = GetNextCode();
 
                     _colorIndexes = new List<int> {code};
                     lastCode = code;
                 }
 
-                code = GetNextCodeFromString();
+                code = GetNextCode();
             }
                 
             resultColorList.AddRange(FormColorList());
@@ -93,15 +94,15 @@ namespace ComputerGraphics.Gif
 
             return result;
         }
-        
-        private int GetNextCodeFromString()
+
+        private int GetNextCode()
         {
-            var code = _compressedDataString.Substring(_currentBit - _codeLength, _codeLength);
-            _currentBit -= _codeLength;
-            
-            return Convert.ToInt32(code, 2);
+            var code = BitSubArray(_compressedData, _currentBit, _codeLength);
+            _currentBit += _codeLength;
+
+            return GetIntFromBitArray(code);
         }
-        
+
         private void InitDictionary(Dictionary<int, RgbColor> baseDictionary, int minCodeLength)
         {
             _codeLength = minCodeLength;
@@ -122,12 +123,7 @@ namespace ComputerGraphics.Gif
             _dictionary[_clearCell] = new List<int> {-1};
             _dictionary[_endCell] = new List<int> {-2};
         }
-        
-        private static string ByteListToString(List<byte> bytes)
-        {
-            return bytes.Aggregate("", (current, b) => Convert.ToString(b, 2).PadLeft(8, '0') + current);
-        }
-        
+
         private static bool IsPowerOfTwo(int a)
         {
             return a > 0 && (a & (a - 1)) == 0;
@@ -151,6 +147,30 @@ namespace ComputerGraphics.Gif
             }
         }
         
+        private static BitArray BitSubArray(BitArray bitArray, int start, int size)
+        {
+            var sub = new bool[size];
+
+            for (var i = start; i < start + size; i++)
+            {
+                sub[i - start] = bitArray[i];
+            }
+
+            return new BitArray(sub);
+        }        
+        
+        private static int GetIntFromBitArray(BitArray bitArray)
+        {
+            
+            if (bitArray.Length > 32)
+                throw new ArgumentException("Argument length shall be at most 32 bits.");
+
+            int[] array = new int[1];
+            bitArray.CopyTo(array, 0);
+            return array[0];
+
+        }
+
         private void OutputDictionary()
         {
             Console.WriteLine("------------------------------------");
