@@ -3,12 +3,20 @@
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
         <OutputType>exe</OutputType>
+        <PublishSingleFile>true</PublishSingleFile>
+        <SelfContained>true</SelfContained>
+        <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+        <PublishReadyToRun>true</PublishReadyToRun>
+        <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
     </PropertyGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\ComputerGraphics.Converters.Sdk\ComputerGraphics.Converters.Sdk.csproj" />
-      <ProjectReference Include="..\ComputerGraphics.Gif\ComputerGraphics.Gif.csproj" />
-      <ProjectReference Include="..\ComputerGraphics.Jpeg\ComputerGraphics.Jpeg.csproj" />
+      <ProjectReference Include="..\ComputerGraphics.PluginLoader\ComputerGraphics.PluginLoader.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="CommandLineParser" Version="2.9.0-preview1" />
     </ItemGroup>
 
 </Project>

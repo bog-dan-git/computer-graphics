@@ -2,17 +2,15 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using ComputerGraphics.Converters.Sdk;
 using ComputerGraphics.Converters.Sdk.Interfaces;
 using ComputerGraphics.Converters.Sdk.Model;
-using ComputerGraphics.Gif;
 using ComputerGraphics.GifReader;
 
 namespace ComputerGraphics.Gif
 {
-    [ImageReader("gif")]
-    public class GifReader : IImageReader
+    [ImageDecoder("gif")]
+    public class GifDecoder : IImageDecoder
     {
         private byte[] _bytesArray;
         private int _offset;
@@ -20,9 +18,9 @@ namespace ComputerGraphics.Gif
         private GifImageDescriptor _imageDescriptor;
         private Dictionary<int, RgbColor> _globalColorTable;
 
-        public async Task<RgbColor[][]> ReadAsync(string filename)
+        public RgbColor[,] Read(byte[] bytes)
         {
-            _bytesArray = await File.ReadAllBytesAsync(filename);
+            _bytesArray = bytes;
             _offset = 0;
             _gifHeader = ReadHeader();
 
@@ -33,19 +31,19 @@ namespace ComputerGraphics.Gif
 
             SkipToByte(0x2C);
             _imageDescriptor = ReadImageDescriptor();
-            
+
             OutputFileDescription();
-            
+
             if (_imageDescriptor.LocalColorTableIsPresent)
             {
                 throw new AnimationUnsupportedException();
             }
-            
+
             if (_imageDescriptor.Interlaced)
             {
                 throw new InterlacedUnsupportedException();
             }
-            
+
             var minCodeLength = ReadBytes(1)[0] + 1;
             var sectionLength = ReadBytes(1)[0];
             var compressedData = new List<byte>();
@@ -60,17 +58,22 @@ namespace ComputerGraphics.Gif
             var colorIndexList = decompressor.Decompress(compressedData, minCodeLength, _globalColorTable);
 
             var resultArray = FormPixelTable(colorIndexList);
-            // ToPpm(resultArray, "verylarge.ppm");
 
-            
-            /*Console.WriteLine("----------\nCells number: " + colorIndexList.Count);
+            return TransposeAndTransformTo2D(resultArray);
+        }
 
-            Console.WriteLine(_globalColorTable[colorIndexList[0]].R + " " + _globalColorTable[colorIndexList[0]].G + " " +
-                              _globalColorTable[colorIndexList[0]].B);
-            Console.WriteLine(_globalColorTable[colorIndexList[^1]].R + " " + _globalColorTable[colorIndexList[^1]].G + " " +
-                              _globalColorTable[colorIndexList[^1]].B);*/
+        private RgbColor[,] TransposeAndTransformTo2D(RgbColor[][] resultArray)
+        {
+            var result = new RgbColor[resultArray[0].Length, resultArray.Length];
+            for (int i = 0; i < resultArray[0].Length; i++)
+            {
+                for (int j = 0; j < resultArray.Length; j++)
+                {
+                    result[i, j] = resultArray[j][i];
+                }
+            }
 
-            return resultArray;
+            return result;
         }
 
         private RgbColor[][] FormPixelTable(List<int> colorIndexList)
@@ -84,7 +87,7 @@ namespace ComputerGraphics.Gif
 
             return pixelTable;
         }
-        
+
         private byte[] ReadBytes(int size)
         {
             var result = _bytesArray.Skip(_offset).Take(size).ToArray();
@@ -178,21 +181,12 @@ namespace ComputerGraphics.Gif
         private void OutputFileDescription()
         {
             Console.WriteLine("Version: " + System.Text.Encoding.UTF8.GetString(_gifHeader.Signature) +
-                System.Text.Encoding.UTF8.GetString(_gifHeader.Version));
+                              System.Text.Encoding.UTF8.GetString(_gifHeader.Version));
             Console.WriteLine("Screen width: " + _gifHeader.ScreenWidth);
             Console.WriteLine("Screen height: " + _gifHeader.ScreenHeight);
             Console.WriteLine("Global color table present: " + _gifHeader.GlobalColorTable);
             Console.WriteLine("Color table size: " + _gifHeader.ColorTableSize);
             Console.WriteLine("Colors are sorted: " + _gifHeader.ColorsSorted);
-
-            Console.WriteLine("-----------------------------------------------------------------");
-            Console.WriteLine("image description:");
-            Console.WriteLine("Left corner X: " + _imageDescriptor.LeftCornerX);
-            Console.WriteLine("Left corner Y: " + _imageDescriptor.LeftCornerY);
-            Console.WriteLine("Image width: " + _imageDescriptor.Width);
-            Console.WriteLine("Image height: " + _imageDescriptor.Height);
-            Console.WriteLine("Image is interlaced: " + _imageDescriptor.Interlaced);
-            Console.WriteLine("Local color table is present: " + _imageDescriptor.LocalColorTableIsPresent);
         }
 
         private void OutputColorTable()
@@ -219,9 +213,10 @@ namespace ComputerGraphics.Gif
                 {
                     sw.Write(pixel.R + " " + pixel.G + " " + pixel.B + "  ");
                 }
+
                 sw.WriteLine();
             }
-            
+
             sw.Close();
         }
     }
