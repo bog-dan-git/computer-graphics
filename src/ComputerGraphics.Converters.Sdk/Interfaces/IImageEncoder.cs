@@ -3,8 +3,8 @@ using ComputerGraphics.Converters.Sdk.Model;
 
 namespace ComputerGraphics.Converters.Sdk.Interfaces
 {
-    public interface IImageWriter
+    public interface IImageEncoder
     {
-        Task WriteAsync(string path, RgbColor[,] colors);
+        byte[] Encode(RgbColor[,] colors);
     }
 }

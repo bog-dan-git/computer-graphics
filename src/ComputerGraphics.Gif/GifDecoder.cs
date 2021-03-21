@@ -10,8 +10,8 @@ using ComputerGraphics.GifReader;
 
 namespace ComputerGraphics.Gif
 {
-    [ImageReader("gif")]
-    public class GifReader : IImageReader
+    [ImageDecoder("gif")]
+    public class GifDecoder : IImageDecoder
     {
         private byte[] _bytesArray;
         private int _offset;
@@ -19,9 +19,9 @@ namespace ComputerGraphics.Gif
         private GifImageDescriptor _imageDescriptor;
         private Dictionary<int, RgbColor> _globalColorTable;
 
-        public async Task<RgbColor[,]> ReadAsync(string filename)
+        public RgbColor[,] Read(byte[] bytes)
         {
-            _bytesArray = await File.ReadAllBytesAsync(filename);
+            _bytesArray = bytes;
             _offset = 0;
             _gifHeader = ReadHeader();
 
@@ -32,19 +32,19 @@ namespace ComputerGraphics.Gif
 
             SkipToByte(0x2C);
             _imageDescriptor = ReadImageDescriptor();
-            
+
             OutputFileDescription();
-            
+
             if (_imageDescriptor.LocalColorTableIsPresent)
             {
                 throw new AnimationUnsupportedException();
             }
-            
+
             if (_imageDescriptor.Interlaced)
             {
                 throw new InterlacedUnsupportedException();
             }
-            
+
             var minCodeLength = ReadBytes(1)[0] + 1;
             var sectionLength = ReadBytes(1)[0];
             var compressedData = new List<byte>();
@@ -59,7 +59,7 @@ namespace ComputerGraphics.Gif
             var colorIndexList = decompressor.Decompress(compressedData, minCodeLength, _globalColorTable);
 
             var resultArray = FormPixelTable(colorIndexList);
-            
+
             return TransposeAndTransformTo2D(resultArray);
         }
 
@@ -88,7 +88,7 @@ namespace ComputerGraphics.Gif
 
             return pixelTable;
         }
-        
+
         private byte[] ReadBytes(int size)
         {
             var result = _bytesArray.Skip(_offset).Take(size).ToArray();
@@ -182,7 +182,7 @@ namespace ComputerGraphics.Gif
         private void OutputFileDescription()
         {
             Console.WriteLine("Version: " + System.Text.Encoding.UTF8.GetString(_gifHeader.Signature) +
-                System.Text.Encoding.UTF8.GetString(_gifHeader.Version));
+                              System.Text.Encoding.UTF8.GetString(_gifHeader.Version));
             Console.WriteLine("Screen width: " + _gifHeader.ScreenWidth);
             Console.WriteLine("Screen height: " + _gifHeader.ScreenHeight);
             Console.WriteLine("Global color table present: " + _gifHeader.GlobalColorTable);
@@ -223,9 +223,10 @@ namespace ComputerGraphics.Gif
                 {
                     sw.Write(pixel.R + " " + pixel.G + " " + pixel.B + "  ");
                 }
+
                 sw.WriteLine();
             }
-            
+
             sw.Close();
         }
     }
