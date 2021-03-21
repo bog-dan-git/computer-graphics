@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using ComputerGraphics.Converters.Sdk;
 using ComputerGraphics.Converters.Sdk.Interfaces;
 using ComputerGraphics.Converters.Sdk.Model;
-using ComputerGraphics.Gif;
 using ComputerGraphics.GifReader;
 
 namespace ComputerGraphics.Gif
@@ -20,7 +19,7 @@ namespace ComputerGraphics.Gif
         private GifImageDescriptor _imageDescriptor;
         private Dictionary<int, RgbColor> _globalColorTable;
 
-        public async Task<RgbColor[][]> ReadAsync(string filename)
+        public async Task<RgbColor[,]> ReadAsync(string filename)
         {
             _bytesArray = await File.ReadAllBytesAsync(filename);
             _offset = 0;
@@ -60,17 +59,22 @@ namespace ComputerGraphics.Gif
             var colorIndexList = decompressor.Decompress(compressedData, minCodeLength, _globalColorTable);
 
             var resultArray = FormPixelTable(colorIndexList);
-            // ToPpm(resultArray, "verylarge.ppm");
-
             
-            /*Console.WriteLine("----------\nCells number: " + colorIndexList.Count);
+            return TransposeAndTransformTo2D(resultArray);
+        }
 
-            Console.WriteLine(_globalColorTable[colorIndexList[0]].R + " " + _globalColorTable[colorIndexList[0]].G + " " +
-                              _globalColorTable[colorIndexList[0]].B);
-            Console.WriteLine(_globalColorTable[colorIndexList[^1]].R + " " + _globalColorTable[colorIndexList[^1]].G + " " +
-                              _globalColorTable[colorIndexList[^1]].B);*/
+        private RgbColor[,] TransposeAndTransformTo2D(RgbColor[][] resultArray)
+        {
+            var result = new RgbColor[resultArray[0].Length, resultArray.Length];
+            for (int i = 0; i < resultArray[0].Length; i++)
+            {
+                for (int j = 0; j < resultArray.Length; j++)
+                {
+                    result[i, j] = resultArray[j][i];
+                }
+            }
 
-            return resultArray;
+            return result;
         }
 
         private RgbColor[][] FormPixelTable(List<int> colorIndexList)
