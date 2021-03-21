@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using ComputerGraphics.Converters.Sdk;
 using ComputerGraphics.Converters.Sdk.Interfaces;
 using ComputerGraphics.Converters.Sdk.Model;
@@ -188,15 +187,6 @@ namespace ComputerGraphics.Gif
             Console.WriteLine("Global color table present: " + _gifHeader.GlobalColorTable);
             Console.WriteLine("Color table size: " + _gifHeader.ColorTableSize);
             Console.WriteLine("Colors are sorted: " + _gifHeader.ColorsSorted);
-
-            Console.WriteLine("-----------------------------------------------------------------");
-            Console.WriteLine("image description:");
-            Console.WriteLine("Left corner X: " + _imageDescriptor.LeftCornerX);
-            Console.WriteLine("Left corner Y: " + _imageDescriptor.LeftCornerY);
-            Console.WriteLine("Image width: " + _imageDescriptor.Width);
-            Console.WriteLine("Image height: " + _imageDescriptor.Height);
-            Console.WriteLine("Image is interlaced: " + _imageDescriptor.Interlaced);
-            Console.WriteLine("Local color table is present: " + _imageDescriptor.LocalColorTableIsPresent);
         }
 
         private void OutputColorTable()

@@ -111,7 +111,7 @@ namespace ComputerGraphics.Jpeg
         };
 
 
-        public static readonly float[] AanScaleFactors =
+        private static readonly float[] AanScaleFactors =
             {1, 1.387039845f, 1.306562965f, 1.175875602f, 1, 0.785694958f, 0.541196100f, 0.275899379f};
 
         #endregion
@@ -141,7 +141,7 @@ namespace ComputerGraphics.Jpeg
             }
         }
 
-        public BitCode ConvertCode(short value)
+        private BitCode ConvertCode(short value)
         {
             short absolute = Math.Abs(value);
             var mask = 0;

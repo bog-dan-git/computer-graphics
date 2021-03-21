@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using ComputerGraphics.Converters.Sdk.Model;
+﻿using ComputerGraphics.Converters.Sdk.Model;
 
 namespace ComputerGraphics.Converters.Sdk.Interfaces
 {
