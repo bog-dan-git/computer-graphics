@@ -5,7 +5,7 @@ using System.Linq;
 using ComputerGraphics.Converters.Sdk;
 using ComputerGraphics.Converters.Sdk.Interfaces;
 using ComputerGraphics.Converters.Sdk.Model;
-using ComputerGraphics.GifReader;
+using ComputerGraphics.Gif.Exceptions;
 
 namespace ComputerGraphics.Gif
 {
