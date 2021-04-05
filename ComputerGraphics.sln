@@ -16,6 +16,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputerGraphics.PluginLoad
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputerGraphics.Converters.Ppm", "src\ComputerGraphics.Converters.Ppm\ComputerGraphics.Converters.Ppm.csproj", "{AC057BFF-3300-4C25-BBE0-C2FB09246210}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputerGraphics.ObjLoader", "src\ComputerGraphics.ObjLoader\ComputerGraphics.ObjLoader.csproj", "{C1318FB8-89E4-434B-8C39-3AB277582379}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,6 +30,7 @@ Global
 		{B8E360D9-F09A-4AF1-A2AF-AE23BF55FA27} = {6A169513-9B32-41D1-9D86-C7E123D2A332}
 		{35345417-745F-4F15-B7C3-A70C1C1FAB17} = {6A169513-9B32-41D1-9D86-C7E123D2A332}
 		{AC057BFF-3300-4C25-BBE0-C2FB09246210} = {6A169513-9B32-41D1-9D86-C7E123D2A332}
+		{C1318FB8-89E4-434B-8C39-3AB277582379} = {6A169513-9B32-41D1-9D86-C7E123D2A332}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{C7D1B67B-EA61-4E48-9B3D-CC7417A38B68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -54,5 +57,9 @@ Global
 		{AC057BFF-3300-4C25-BBE0-C2FB09246210}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC057BFF-3300-4C25-BBE0-C2FB09246210}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC057BFF-3300-4C25-BBE0-C2FB09246210}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1318FB8-89E4-434B-8C39-3AB277582379}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1318FB8-89E4-434B-8C39-3AB277582379}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1318FB8-89E4-434B-8C39-3AB277582379}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1318FB8-89E4-434B-8C39-3AB277582379}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
