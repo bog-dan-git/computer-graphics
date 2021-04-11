@@ -5,4 +5,9 @@
         <TargetFramework>net5.0</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\ComputerGraphics.Converters.Sdk\ComputerGraphics.Converters.Sdk.csproj" />
+      <ProjectReference Include="..\ComputerGraphics.Jpeg\ComputerGraphics.Jpeg.csproj" />
+    </ItemGroup>
+
 </Project>

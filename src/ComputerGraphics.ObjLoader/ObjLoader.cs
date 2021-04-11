@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Numerics;
 using ComputerGraphics.ObjLoader.Models;
 
 namespace ComputerGraphics.ObjLoader
@@ -14,6 +15,7 @@ namespace ComputerGraphics.ObjLoader
         private List<Triangle> _resultNormals;
         private List<Triangle> _resultFaces;
 
+        
         public Object3D Load(string filename)
         {
             var lines = File.ReadAllLines(filename);
@@ -25,7 +27,9 @@ namespace ComputerGraphics.ObjLoader
 
             foreach (var line in lines)
             {
-                var parsedLine = line.Split();
+                var parsedLine = line.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+
+                if (parsedLine.Length == 0) continue;
 
                 switch (parsedLine[0])
                 {
