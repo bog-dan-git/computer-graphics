@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
-namespace ComputerGraphics.GifReader
+namespace ComputerGraphics.Gif.Exceptions
 {
+    [Serializable]
     public class InterlacedUnsupportedException : Exception
     {
-        public InterlacedUnsupportedException()
+        public InterlacedUnsupportedException() : base("Interlace is not supported")
         {
         }
 
@@ -15,6 +17,12 @@ namespace ComputerGraphics.GifReader
 
         public InterlacedUnsupportedException(string message, Exception inner)
             : base(message, inner)
+        {
+        }
+        
+        protected InterlacedUnsupportedException(
+            SerializationInfo info,
+            StreamingContext context) : base(info, context)
         {
         }
     }

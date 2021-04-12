@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
-namespace ComputerGraphics.GifReader
+namespace ComputerGraphics.Gif.Exceptions
 {
+    [Serializable]
     public class AnimationUnsupportedException : Exception
     {
-        public AnimationUnsupportedException()
+        public AnimationUnsupportedException() : base("Animation is not supported")
         {
         }
 
@@ -15,6 +17,12 @@ namespace ComputerGraphics.GifReader
 
         public AnimationUnsupportedException(string message, Exception inner)
             : base(message, inner)
+        {
+        }
+
+        protected AnimationUnsupportedException(
+            SerializationInfo info,
+            StreamingContext context) : base(info, context)
         {
         }
     }

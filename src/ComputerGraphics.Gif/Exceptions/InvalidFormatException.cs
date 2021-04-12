@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
-namespace ComputerGraphics.GifReader
+namespace ComputerGraphics.Gif.Exceptions
 {
+    [Serializable]
     public class InvalidFormatException : Exception
     {
-        public InvalidFormatException()
+        public InvalidFormatException() : base("Invalid format!")
         {
         }
 
@@ -15,6 +17,12 @@ namespace ComputerGraphics.GifReader
 
         public InvalidFormatException(string message, Exception inner)
             : base(message, inner)
+        {
+        }
+
+        protected InvalidFormatException(
+            SerializationInfo info,
+            StreamingContext context) : base(info, context)
         {
         }
     }
