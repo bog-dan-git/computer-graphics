@@ -12,6 +12,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputerGraphics.Gif", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputerGraphics.ConsoleApp", "src\ComputerGraphics.ConsoleApp\ComputerGraphics.ConsoleApp.csproj", "{B8E360D9-F09A-4AF1-A2AF-AE23BF55FA27}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputerGraphics.RayTracing.Core", "src\ComputerGraphics.RayTracing.Core\ComputerGraphics.RayTracing.Core.csproj", "{B4EAAD18-E2C2-4064-B1C7-CF6B662B2ED0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputerGraphics.Ioc.Framework", "src\ComputerGraphics.Ioc.Framework\ComputerGraphics.Ioc.Framework.csproj", "{3678BB84-F2B4-4A97-A124-48EB141CD95F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputerGraphics.Ioc.Framework.Tests", "tests\ComputerGraphics.Ioc.Framework.Tests\ComputerGraphics.Ioc.Framework.Tests.csproj", "{56F19A90-7607-45C7-9BC9-F59FD968436B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputerGraphics.RayTracing.Implementation", "src\ComputerGraphics.RayTracing.Implementation\ComputerGraphics.RayTracing.Implementation.csproj", "{B4732993-0D77-4894-A5EF-8AEE14E5ADDF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,6 +30,10 @@ Global
 		{EE52DF68-74CC-4334-8393-3B1F6D8D1003} = {6A169513-9B32-41D1-9D86-C7E123D2A332}
 		{5507085A-CCE2-4036-AB71-B2BA0A611EE2} = {6A169513-9B32-41D1-9D86-C7E123D2A332}
 		{B8E360D9-F09A-4AF1-A2AF-AE23BF55FA27} = {6A169513-9B32-41D1-9D86-C7E123D2A332}
+		{B4EAAD18-E2C2-4064-B1C7-CF6B662B2ED0} = {6A169513-9B32-41D1-9D86-C7E123D2A332}
+		{3678BB84-F2B4-4A97-A124-48EB141CD95F} = {6A169513-9B32-41D1-9D86-C7E123D2A332}
+		{56F19A90-7607-45C7-9BC9-F59FD968436B} = {B3045509-C323-45C2-9F4D-AB8CD4B416BA}
+		{B4732993-0D77-4894-A5EF-8AEE14E5ADDF} = {6A169513-9B32-41D1-9D86-C7E123D2A332}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{C7D1B67B-EA61-4E48-9B3D-CC7417A38B68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -40,5 +52,21 @@ Global
 		{B8E360D9-F09A-4AF1-A2AF-AE23BF55FA27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8E360D9-F09A-4AF1-A2AF-AE23BF55FA27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8E360D9-F09A-4AF1-A2AF-AE23BF55FA27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4EAAD18-E2C2-4064-B1C7-CF6B662B2ED0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4EAAD18-E2C2-4064-B1C7-CF6B662B2ED0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4EAAD18-E2C2-4064-B1C7-CF6B662B2ED0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4EAAD18-E2C2-4064-B1C7-CF6B662B2ED0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3678BB84-F2B4-4A97-A124-48EB141CD95F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3678BB84-F2B4-4A97-A124-48EB141CD95F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3678BB84-F2B4-4A97-A124-48EB141CD95F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3678BB84-F2B4-4A97-A124-48EB141CD95F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56F19A90-7607-45C7-9BC9-F59FD968436B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56F19A90-7607-45C7-9BC9-F59FD968436B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56F19A90-7607-45C7-9BC9-F59FD968436B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56F19A90-7607-45C7-9BC9-F59FD968436B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4732993-0D77-4894-A5EF-8AEE14E5ADDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4732993-0D77-4894-A5EF-8AEE14E5ADDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4732993-0D77-4894-A5EF-8AEE14E5ADDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4732993-0D77-4894-A5EF-8AEE14E5ADDF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
