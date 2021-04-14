@@ -5,7 +5,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\ComputerGraphics.Converters.Ppm\ComputerGraphics.Converters.Ppm.csproj" />
       <ProjectReference Include="..\ComputerGraphics.Converters.Sdk\ComputerGraphics.Converters.Sdk.csproj" />
+      <ProjectReference Include="..\ComputerGraphics.Ioc.Framework\ComputerGraphics.Ioc.Framework.csproj" />
+      <ProjectReference Include="..\ComputerGraphics.Jpeg\ComputerGraphics.Jpeg.csproj" />
     </ItemGroup>
 
 </Project>

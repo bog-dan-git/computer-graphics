@@ -1,8 +1,8 @@
 ﻿using System.Numerics;
 
-namespace ComputerGraphics.ObjLoader
+namespace ComputerGraphics.RayTracing.Entities.Collections
 {
-    public struct BoxSplit
+    internal struct BoxSplit
     {
         public Vector3 LBoxMax { get; set; }
         public Vector3 RBoxMin { get; set; }

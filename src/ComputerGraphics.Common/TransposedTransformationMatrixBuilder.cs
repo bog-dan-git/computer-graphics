@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Numerics;
-using ComputerGraphics.RayTracing.Core.Interfaces;
 
-namespace ComputerGraphics.RayTracing.Implementation.Builders
+namespace ComputerGraphics.Common
 {
-    internal class TransposedTransformationMatrixBuilder : ITransformationMatrixBuilder
+    public class TransposedTransformationMatrixBuilder
     {
         private Matrix4x4 _matrix4 = Matrix4x4.Identity;
 
-        public ITransformationMatrixBuilder RotateX(float rad)
+        public TransposedTransformationMatrixBuilder RotateX(float rad)
         {
             var cos = MathF.Cos(rad);
             var sin = MathF.Sin(rad);
@@ -20,7 +19,7 @@ namespace ComputerGraphics.RayTracing.Implementation.Builders
             return this;
         }
 
-        public ITransformationMatrixBuilder RotateY(float rad)
+        public TransposedTransformationMatrixBuilder RotateY(float rad)
         {
             var cos = MathF.Cos(rad);
             var sin = MathF.Sin(rad);
@@ -32,7 +31,7 @@ namespace ComputerGraphics.RayTracing.Implementation.Builders
             return this;
         }
 
-        public ITransformationMatrixBuilder RotateZ(float rad)
+        public TransposedTransformationMatrixBuilder RotateZ(float rad)
         {
             var cos = MathF.Cos(rad);
             var sin = MathF.Sin(rad);
@@ -44,7 +43,7 @@ namespace ComputerGraphics.RayTracing.Implementation.Builders
             return this;
         }
 
-        public ITransformationMatrixBuilder MoveX(float offset)
+        public TransposedTransformationMatrixBuilder MoveX(float offset)
         {
             var matrix = Matrix4x4.Transpose(new Matrix4x4(1, 0, 0, offset,
                 0, 1, 0, 0,
@@ -54,7 +53,7 @@ namespace ComputerGraphics.RayTracing.Implementation.Builders
             return this;
         }
 
-        public ITransformationMatrixBuilder MoveY(float offset)
+        public TransposedTransformationMatrixBuilder MoveY(float offset)
         {
             var matrix = Matrix4x4.Transpose(new Matrix4x4(1, 0, 0, 0,
                 0, 1, 0, offset,
@@ -64,7 +63,7 @@ namespace ComputerGraphics.RayTracing.Implementation.Builders
             return this;
         }
 
-        public ITransformationMatrixBuilder MoveZ(float offset)
+        public TransposedTransformationMatrixBuilder MoveZ(float offset)
         {
             var matrix = Matrix4x4.Transpose(new Matrix4x4(1, 0, 0, 0,
                 0, 1, 0, 0,
@@ -74,7 +73,7 @@ namespace ComputerGraphics.RayTracing.Implementation.Builders
             return this;
         }
 
-        public ITransformationMatrixBuilder ScaleX(float coef)
+        public TransposedTransformationMatrixBuilder ScaleX(float coef)
         {
             var matrix = Matrix4x4.Transpose(new Matrix4x4(coef, 0, 0, 0,
                 0, 1, 0, 0,
@@ -84,7 +83,7 @@ namespace ComputerGraphics.RayTracing.Implementation.Builders
             return this;
         }
 
-        public ITransformationMatrixBuilder ScaleY(float coef)
+        public TransposedTransformationMatrixBuilder ScaleY(float coef)
         {
             var matrix = Matrix4x4.Transpose(new Matrix4x4(1, 0, 0, 0,
                 0, coef, 0, 0,
@@ -94,7 +93,7 @@ namespace ComputerGraphics.RayTracing.Implementation.Builders
             return this;
         }
 
-        public ITransformationMatrixBuilder ScaleZ(float coef)
+        public TransposedTransformationMatrixBuilder ScaleZ(float coef)
         {
             var matrix = Matrix4x4.Transpose(new Matrix4x4(1, 0, 0, 0,
                 0, 1, 0, 0,

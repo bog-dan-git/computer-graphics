@@ -1,4 +1,4 @@
-﻿namespace ComputerGraphics.ObjLoader
+﻿namespace ComputerGraphics.RayTracing.Entities.Collections
 {
     internal struct RayBoxIntersection
     {

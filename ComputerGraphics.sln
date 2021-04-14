@@ -20,6 +20,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputerGraphics.Ioc.Framew
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputerGraphics.RayTracing.Implementation", "src\ComputerGraphics.RayTracing.Implementation\ComputerGraphics.RayTracing.Implementation.csproj", "{B4732993-0D77-4894-A5EF-8AEE14E5ADDF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputerGraphics.PluginLoader", "src\ComputerGraphics.PluginLoader\ComputerGraphics.PluginLoader.csproj", "{CB018B79-7A83-4F7E-932C-B98BF22AD2A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputerGraphics.Converters.Ppm", "src\ComputerGraphics.Converters.Ppm\ComputerGraphics.Converters.Ppm.csproj", "{F89DFA70-742A-4ABE-A678-1A190A09C8E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputerGraphics.ObjLoader", "src\ComputerGraphics.ObjLoader\ComputerGraphics.ObjLoader.csproj", "{8CCB8BF3-39A2-4795-AA07-8A7395FFA9B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputerGraphics.RayTracing.Entities", "src\ComputerGraphics.RayTracing.Entities\ComputerGraphics.RayTracing.Entities.csproj", "{BCCDE25D-6C11-4B6B-A1E0-715DE941E52B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputerGraphics.Common", "src\ComputerGraphics.Common\ComputerGraphics.Common.csproj", "{CDE7FDE8-B9CF-4374-8C5F-12710C548CEE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +44,11 @@ Global
 		{3678BB84-F2B4-4A97-A124-48EB141CD95F} = {6A169513-9B32-41D1-9D86-C7E123D2A332}
 		{56F19A90-7607-45C7-9BC9-F59FD968436B} = {B3045509-C323-45C2-9F4D-AB8CD4B416BA}
 		{B4732993-0D77-4894-A5EF-8AEE14E5ADDF} = {6A169513-9B32-41D1-9D86-C7E123D2A332}
+		{CB018B79-7A83-4F7E-932C-B98BF22AD2A6} = {6A169513-9B32-41D1-9D86-C7E123D2A332}
+		{F89DFA70-742A-4ABE-A678-1A190A09C8E1} = {6A169513-9B32-41D1-9D86-C7E123D2A332}
+		{8CCB8BF3-39A2-4795-AA07-8A7395FFA9B7} = {6A169513-9B32-41D1-9D86-C7E123D2A332}
+		{BCCDE25D-6C11-4B6B-A1E0-715DE941E52B} = {6A169513-9B32-41D1-9D86-C7E123D2A332}
+		{CDE7FDE8-B9CF-4374-8C5F-12710C548CEE} = {6A169513-9B32-41D1-9D86-C7E123D2A332}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{C7D1B67B-EA61-4E48-9B3D-CC7417A38B68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -68,5 +83,25 @@ Global
 		{B4732993-0D77-4894-A5EF-8AEE14E5ADDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4732993-0D77-4894-A5EF-8AEE14E5ADDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4732993-0D77-4894-A5EF-8AEE14E5ADDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB018B79-7A83-4F7E-932C-B98BF22AD2A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB018B79-7A83-4F7E-932C-B98BF22AD2A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB018B79-7A83-4F7E-932C-B98BF22AD2A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB018B79-7A83-4F7E-932C-B98BF22AD2A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F89DFA70-742A-4ABE-A678-1A190A09C8E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F89DFA70-742A-4ABE-A678-1A190A09C8E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F89DFA70-742A-4ABE-A678-1A190A09C8E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F89DFA70-742A-4ABE-A678-1A190A09C8E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CCB8BF3-39A2-4795-AA07-8A7395FFA9B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CCB8BF3-39A2-4795-AA07-8A7395FFA9B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CCB8BF3-39A2-4795-AA07-8A7395FFA9B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CCB8BF3-39A2-4795-AA07-8A7395FFA9B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCCDE25D-6C11-4B6B-A1E0-715DE941E52B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCCDE25D-6C11-4B6B-A1E0-715DE941E52B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCCDE25D-6C11-4B6B-A1E0-715DE941E52B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCCDE25D-6C11-4B6B-A1E0-715DE941E52B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDE7FDE8-B9CF-4374-8C5F-12710C548CEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDE7FDE8-B9CF-4374-8C5F-12710C548CEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDE7FDE8-B9CF-4374-8C5F-12710C548CEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDE7FDE8-B9CF-4374-8C5F-12710C548CEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

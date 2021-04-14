@@ -1,5 +1,5 @@
 ﻿using System.Numerics;
-using ComputerGraphics.RayTracing.Core.Services;
+using ComputerGraphics.RayTracing.Core.Interfaces;
 
 namespace ComputerGraphics.RayTracing.Implementation.Services
 {

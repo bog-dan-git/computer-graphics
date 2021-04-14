@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Numerics;
-using ComputerGraphics.ObjLoader.Models;
+using ComputerGraphics.RayTracing.Core.Entities;
+using ComputerGraphics.RayTracing.Entities.Entities;
 
-namespace ComputerGraphics.ObjLoader
+namespace ComputerGraphics.RayTracing.Entities.Collections
 {
-    public class KDTreeNode
+    internal class KDTreeNode
     {
         //  ////////////////////
         public static int trianglesChecked = 0;
@@ -131,7 +132,7 @@ namespace ComputerGraphics.ObjLoader
             Triangles = null;
         }
 
-        public HitResult? Traverse(Ray ray)
+        public HitResult? Traverse(in Ray ray)
         {
             var intersectionResult = IntersectBox(ray);
             if (!intersectionResult.Intersected)
@@ -190,10 +191,9 @@ namespace ComputerGraphics.ObjLoader
         {
             HitResult? nearestHit = null;
             if (Triangles == null) return null;
-            
             foreach (var triangle in Triangles)
             {
-                var hitResult = Hit(ray, triangle);
+                var hitResult =  triangle.Hit(ray);
                 if (!nearestHit.HasValue)
                 {
                     nearestHit = hitResult;
@@ -205,46 +205,9 @@ namespace ComputerGraphics.ObjLoader
                     nearestHit = hitResult.Value;
                 }
             }
-
             return nearestHit;
         }
-        
-        private static HitResult? Hit(Ray r, Triangle triangle)
-        {
-            trianglesChecked++;
-            var e1 = triangle.B - triangle.A;
-            var e2 = triangle.C - triangle.A;
-            var pvec = Vector3.Cross(r.Direction, e2);
-            var det = Vector3.Dot(e1, pvec);
-            if (det < 1e-8 && det > -1e-8)
-            {
-                return null;
-            }
 
-            var invDet = 1 / det;
-            var tvec = r.Origin - triangle.A;
-            var u = Vector3.Dot(tvec, pvec) * invDet;
-            if (u < 0 || u > 1)
-            {
-                return null;
-            }
-
-            var qvec = Vector3.Cross(tvec, e1);
-            var v = Vector3.Dot(r.Direction, qvec) * invDet;
-            if (v < 0 || u + v > 1)
-            {
-                return null;
-            }
-
-            var f = Vector3.Dot(e2, qvec) * invDet;
-            return new HitResult()
-            {
-                P = r.PointAt(f),
-                Normal = Vector3.Cross(e2, e1),
-                T = f
-            };
-        }
-        
         private static float AxisVal(Vector3 vector, int axis) =>
             axis switch
             {

@@ -2,20 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using ComputerGraphics.Common;
 using ComputerGraphics.RayTracing.Core.Entities;
 using ComputerGraphics.RayTracing.Core.Interfaces;
-using ComputerGraphics.RayTracing.Implementation.Builders;
+using ComputerGraphics.RayTracing.Entities.Collections;
 
-namespace ComputerGraphics.RayTracing.Implementation.Entities
+namespace ComputerGraphics.RayTracing.Entities.Entities
 {
     public class Mesh : IHittable, ITransformable
     {
         private readonly IEnumerable<Triangle> _triangles;
+        private readonly KDTree _tree;
 
         public Mesh(IEnumerable<Triangle> triangles)
         {
-            _triangles = triangles;
+            _triangles = triangles.ToArray();
             ResetToDefault();
+            _tree = new KDTree(_triangles.ToArray());
         }
 
         public void Transform(Matrix4x4 matrix4X4)
@@ -26,30 +29,11 @@ namespace ComputerGraphics.RayTracing.Implementation.Entities
             }
         }
 
-        public HitResult? Hit(Ray r, float min, float max)
-        {
-            HitResult? hitResult = null;
-            foreach (var triangle in _triangles)
-            {
-                var hit = triangle.Hit(r, min, max);
-                if (!hit.HasValue) continue;
-                if (!hitResult.HasValue)
-                {
-                    hitResult = hit;
-                }
-                else
-                {
-                    if (hitResult.Value.T <
-                        hit.Value.T)
-                    {
-                        hitResult = hit;
-                    }
-                }
-            }
+        public HitResult? Hit(Ray r) => _tree.Traverse(r);
 
-            return hitResult;
-        }
-
+        /// <summary>
+        /// Scales object approximately to fit in 10x10 box, and centers it to approximately (0,0,10) 
+        /// </summary>
         private void ResetToDefault()
         {
             var xs = _triangles.Select(_ => new[] {_.A.X, _.B.X, _.C.X})
@@ -73,6 +57,7 @@ namespace ComputerGraphics.RayTracing.Implementation.Entities
                 .ScaleX(scale)
                 .ScaleY(scale)
                 .ScaleZ(scale)
+                .MoveZ(10)
                 .Build());
         }
     }

@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Numerics;
 using ComputerGraphics.RayTracing.Core.Entities;
 using ComputerGraphics.RayTracing.Core.Interfaces;
 
@@ -10,8 +11,8 @@ namespace ComputerGraphics.RayTracing.Implementation.Services
         {
             var lightOrigin = lightProvider.Origin;
             var lightDirection = Vector3.Normalize(lightOrigin - hitResult.P);
-            var lightAbs = Vector3.Dot(hitResult.Normal, lightDirection);
-            return new Vector3(lightAbs, lightAbs, lightAbs);
+            var lightAbs = Math.Clamp(MathF.Abs(Vector3.Dot(Vector3.Normalize(hitResult.Normal), lightDirection)), 0, 1);
+            return new Vector3(205f * lightAbs / 255f, 40f * lightAbs / 255f, 40f * lightAbs / 255f);
         }
     }
 }

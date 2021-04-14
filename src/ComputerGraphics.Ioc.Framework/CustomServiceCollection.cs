@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
@@ -10,7 +9,6 @@ namespace ComputerGraphics.Ioc.Framework
     public class CustomServiceCollection
     {
         private readonly ImmutableDictionary<Type, ServiceDescription> _services;
-        private readonly Dictionary<Type, List<Type>> _cache = new();
         private readonly HashSet<Type> _empty = new();
         private readonly Dictionary<Type, object> _singletons = new();
 
@@ -25,7 +23,7 @@ namespace ComputerGraphics.Ioc.Framework
 
         private object GetService(Type type)
         {
-            if (!_services.TryGetValue(type, out var implementation)) throw new DependencyNotFoundException();
+            if (!_services.TryGetValue(type, out var implementation)) throw new DependencyNotFoundException(type);
             switch (implementation.Lifetime)
             {
                 case DependencyLifetime.Transient:

@@ -1,9 +1,10 @@
 ﻿using System.Numerics;
-using ComputerGraphics.ObjLoader.Models;
+using ComputerGraphics.RayTracing.Core.Entities;
+using ComputerGraphics.RayTracing.Entities.Entities;
 
-namespace ComputerGraphics.ObjLoader
+namespace ComputerGraphics.RayTracing.Entities.Collections
 {
-    public class KDTree
+    internal class KDTree
     {
         public KDTreeNode HeadNode { get; set; }
         
@@ -36,7 +37,7 @@ namespace ComputerGraphics.ObjLoader
             HeadNode.SplitNode();
         }
 
-        public HitResult? Traverse(Ray ray)
+        public HitResult? Traverse(in Ray ray)
         {
             return HeadNode.Traverse(ray);
         }

@@ -1,6 +1,6 @@
 ﻿using System.Numerics;
 
-namespace ComputerGraphics.RayTracing.Core.Services
+namespace ComputerGraphics.RayTracing.Core.Interfaces
 {
     public interface ICameraProvider
     {

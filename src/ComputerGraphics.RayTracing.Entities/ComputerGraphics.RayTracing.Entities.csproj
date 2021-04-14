@@ -5,8 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ComputerGraphics.Ioc.Framework\ComputerGraphics.Ioc.Framework.csproj" />
-      <ProjectReference Include="..\ComputerGraphics.ObjLoader\ComputerGraphics.ObjLoader.csproj" />
+      <ProjectReference Include="..\ComputerGraphics.Common\ComputerGraphics.Common.csproj" />
       <ProjectReference Include="..\ComputerGraphics.RayTracing.Core\ComputerGraphics.RayTracing.Core.csproj" />
     </ItemGroup>
 
