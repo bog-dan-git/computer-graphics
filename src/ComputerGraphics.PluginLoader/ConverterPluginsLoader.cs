@@ -14,8 +14,14 @@ namespace ComputerGraphics.PluginLoader
         IConverterFactory LoadConverters();
     }
 
-    public class ConverterPluginsLoader : IConverterPluginsLoader
+    internal class ConverterPluginsLoader : IConverterPluginsLoader
     {
+        private readonly Assembly[] _initialAssemblies =
+        {
+            typeof(ComputerGraphics.Converters.Ppm.PpmEncoder).Assembly,
+            typeof(ComputerGraphics.Jpeg.JpegEncoder).Assembly
+        };
+
         public IConverterFactory LoadConverters()
         {
             var decoders = new IgnoreCaseDictionary<IImageDecoder>();
@@ -32,19 +38,23 @@ namespace ComputerGraphics.PluginLoader
 
         private Assembly[] LoadPlugins()
         {
-            var result = new List<Assembly>();
-            var dlls = Directory.GetFiles(Path.Join(AppContext.BaseDirectory, "Plugins"), "*.dll");
-            foreach (var el in dlls)
+            var result = new List<Assembly>(_initialAssemblies);
+            var path = Path.Join(AppContext.BaseDirectory, "Plugins");
+            if (Directory.Exists(path))
             {
-                try
+                var dlls = Directory.GetFiles(path, "*.dll");
+                foreach (var el in dlls)
                 {
-                    var loadContext = new PluginLoadContext(el);
-                    result.Add(loadContext.LoadFromAssemblyName(
-                        new AssemblyName(Path.GetFileNameWithoutExtension(el))));
-                }
-                // Just ignore if we can't
-                catch
-                {
+                    try
+                    {
+                        var loadContext = new PluginLoadContext(el);
+                        result.Add(loadContext.LoadFromAssemblyName(
+                            new AssemblyName(Path.GetFileNameWithoutExtension(el))));
+                    }
+                    // Just ignore if we can't
+                    catch
+                    {
+                    }
                 }
             }
 

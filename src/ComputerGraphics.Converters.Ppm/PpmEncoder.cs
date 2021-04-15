@@ -6,7 +6,7 @@ using ComputerGraphics.Converters.Sdk.Model;
 namespace ComputerGraphics.Converters.Ppm
 {
     [ImageEncoder("ppm")]
-    internal class PpmEncoder : IImageEncoder
+    public class PpmEncoder : IImageEncoder
     {
         public byte[] Encode(RgbColor[,] colors)
         {
