@@ -4,12 +4,13 @@ using System.Linq;
 using System.Numerics;
 using ComputerGraphics.Common;
 using ComputerGraphics.RayTracing.Core.Entities;
+using ComputerGraphics.RayTracing.Core.Entities.SceneObjects;
 using ComputerGraphics.RayTracing.Core.Interfaces;
 using ComputerGraphics.RayTracing.Entities.Collections;
 
 namespace ComputerGraphics.RayTracing.Entities.Entities
 {
-    public class Mesh : IHittable, ITransformable
+    public class Mesh : SceneObject, ITransformable
     {
         private readonly IEnumerable<Triangle> _triangles;
         private readonly KDTree _tree;
@@ -29,7 +30,7 @@ namespace ComputerGraphics.RayTracing.Entities.Entities
             }
         }
 
-        public HitResult? Hit(Ray r) => _tree.Traverse(r);
+        public override HitResult? Hit(Ray r) => _tree.Traverse(r);
 
         /// <summary>
         /// Scales object approximately to fit in 10x10 box, and centers it to approximately (0,0,10) 
