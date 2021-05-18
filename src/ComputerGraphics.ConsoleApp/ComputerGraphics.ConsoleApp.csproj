@@ -21,6 +21,7 @@
       <ProjectReference Include="..\ComputerGraphics.RayTracing.Core\ComputerGraphics.RayTracing.Core.csproj" />
       <ProjectReference Include="..\ComputerGraphics.RayTracing.Entities\ComputerGraphics.RayTracing.Entities.csproj" />
       <ProjectReference Include="..\ComputerGraphics.RayTracing.Implementation\ComputerGraphics.RayTracing.Implementation.csproj" />
+      <ProjectReference Include="..\ComputerGraphics.SceneLoader\ComputerGraphics.SceneLoader.csproj" />
     </ItemGroup>
 
     <ItemGroup>

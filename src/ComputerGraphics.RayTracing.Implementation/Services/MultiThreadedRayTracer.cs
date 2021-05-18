@@ -33,7 +33,7 @@ namespace ComputerGraphics.RayTracing.Implementation.Services
                 Parallel.For(0, height, j =>
                 {
                     var ray = _rayProvider.GetRay(i, j);
-                    foreach (var hittable in scene.Hittables)
+                    foreach (var hittable in scene.SceneObjects)
                     {
                         var hitResult = hittable.Hit(ray);
 

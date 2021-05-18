@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Numerics;
 using ComputerGraphics.RayTracing.Core.Entities;
+using ComputerGraphics.RayTracing.Core.Entities.SceneObjects;
 using ComputerGraphics.RayTracing.Core.Interfaces;
 
 namespace ComputerGraphics.RayTracing.Entities.Entities
 {
-    public class Triangle : IHittable, ITransformable
+    public class Triangle : SceneObject, ITransformable
     {
         private Vector3 _boxMax;
         private Vector3 _boxMin;
@@ -21,7 +22,7 @@ namespace ComputerGraphics.RayTracing.Entities.Entities
         public Vector3 B { get; private set; }
         public Vector3 C { get; private set; }
 
-        public HitResult? Hit(Ray r)
+        public override HitResult? Hit(Ray r)
         {
             var e1 = B - A;
             var e2 = C - A;
