@@ -24,7 +24,7 @@ namespace ComputerGraphics.SceneLoader.Mapping
         {
             SceneObject mapped = input.MeshCase switch
             {
-                SceneFormat.SceneObject.MeshOneofCase.Cube => new Cube()
+                SceneFormat.SceneObject.MeshOneofCase.Cube => new Box()
                 {
                     Size = new Vector3((float) input.Cube.Size.X, (float) input.Cube.Size.Y, (float) input.Cube.Size.Z)
                 },
