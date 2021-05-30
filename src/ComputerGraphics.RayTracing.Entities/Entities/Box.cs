@@ -10,6 +10,7 @@ namespace ComputerGraphics.RayTracing.Entities.Entities
     public class Box : SceneObject
     {
         public Vector3 Size { get; set; }
+        
         private const float Epsilon = 1e-6f; 
         
         public override HitResult? Hit(Ray r)
@@ -138,8 +139,7 @@ namespace ComputerGraphics.RayTracing.Entities.Entities
             }
             #endregion
             
-            var intersectionDistance = tMin;
-            
+            var intersectionDistance = tMin;            
             var point = r.Direction * intersectionDistance + r.Origin;
             var normal = GetNormal(point, r);
             return new HitResult(){T = intersectionDistance, P = point, Normal = normal};
