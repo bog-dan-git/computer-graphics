@@ -10,6 +10,6 @@ namespace ComputerGraphics.RayTracing.Core.Entities
         public Ray(Vector3 origin, Vector3 direction) => (Origin, Direction) = (origin, direction);
 
 
-        public Vector3 PointAt(float t) => Origin * t + Direction;
+        public Vector3 PointAt(float t) => Origin + Direction * t;
     }
 }

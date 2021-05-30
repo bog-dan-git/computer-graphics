@@ -35,7 +35,7 @@ namespace ComputerGraphics.ConsoleApp
             var startTime = DateTime.Now;
             var file = new ObjLoader.ObjLoader().Load(inputFileName);
             Console.WriteLine("Started creating mesh");
-            var mesh = new Mesh(file.Faces.Select(_ => new Triangle(_.A, _.B, _.C)).ToArray());
+            var mesh = new Mesh(file.Faces.Select(_ => new Triangle(_.A, _.B, _.C, _.NormalA, _.NormalB, _.NormalC)).ToArray());
             Console.WriteLine("Finished creating mesh");
             var scene = new Scene(new[] {mesh});
             Console.WriteLine("Started tracing");
