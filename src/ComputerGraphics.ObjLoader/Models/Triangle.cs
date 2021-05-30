@@ -25,6 +25,10 @@ namespace ComputerGraphics.ObjLoader.Models
             }
         }
         
+        public Vector3 NormalA { get; set; }
+        public Vector3 NormalB { get; set; }
+        public Vector3 NormalC { get; set; }
+        
         private Vector3 _boxMin;
         public Vector3 BoxMin
         {

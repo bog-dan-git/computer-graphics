@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Numerics;
+using System.Reflection.Metadata.Ecma335;
 using ComputerGraphics.RayTracing.Core.Entities;
 using ComputerGraphics.RayTracing.Core.Entities.SceneObjects;
 using ComputerGraphics.RayTracing.Core.Interfaces;
@@ -11,8 +12,24 @@ namespace ComputerGraphics.RayTracing.Entities.Entities
         private Vector3 _boxMax;
         private Vector3 _boxMin;
 
+        private const float Epsilon = 1e-8f; 
+        
+        public Vector3 NormalA { get; set; }
+        public Vector3 NormalB { get; set; }
+        public Vector3 NormalC { get; set; }
+        
         public Triangle(Vector3 a, Vector3 b, Vector3 c)
         {
+            A = a;
+            B = b;
+            C = c;
+        }
+
+        public Triangle(Vector3 a, Vector3 b, Vector3 c, Vector3 normalA, Vector3 normalB, Vector3 normalC)
+        {
+            NormalA = normalA;
+            NormalB = normalB;
+            NormalC = normalC;
             A = a;
             B = b;
             C = c;
@@ -49,12 +66,39 @@ namespace ComputerGraphics.RayTracing.Entities.Entities
             }
 
             var f = Vector3.Dot(e2, qvec) * invDet;
+            var normal = Vector3.Normalize(Vector3.Cross(e2, e1));
+            var intersectionPoint = r.PointAt(f);
+            
+            if (!NormalA.Equals(Vector3.Zero) && !NormalB.Equals(Vector3.Zero) && !NormalC.Equals(Vector3.Zero))
+            {
+                normal = CalculateBarycentricNormal(intersectionPoint);
+            }
+            
             return new HitResult()
             {
-                P = r.PointAt(f),
-                Normal = Vector3.Cross(e2, e1),
+                P = intersectionPoint,
+                Normal = normal,
                 T = f
             };
+        }
+
+        private Vector3 CalculateBarycentricNormal(Vector3 point)
+        {
+            var v0 = B - A;
+            var v1 = C - A;
+            var v2 = point - A;
+            var d00 = Vector3.Dot(v0, v0);
+            var d01 = Vector3.Dot(v0, v1);
+            var d11 = Vector3.Dot(v1, v1);
+            var d20 = Vector3.Dot(v2, v0);
+            var d21 = Vector3.Dot(v2, v1);
+            var denom = d00 * d11 - d01 * d01;
+            var v = (d11 * d20 - d01 * d21) / denom;
+            var w = (d00 * d21 - d01 * d20) / denom;
+            var u = 1.0f - v - w;
+            var barNormal = u * NormalA + v * NormalB + w * NormalC; 
+            
+            return barNormal;
         }
 
         public void Transform(Matrix4x4 matrix4X4)

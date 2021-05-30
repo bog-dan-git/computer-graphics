@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
 using ComputerGraphics.Common;
 using ComputerGraphics.RayTracing.Core.Entities;
@@ -11,7 +10,7 @@ namespace ComputerGraphics.RayTracing.Entities.Entities
     public class Box : SceneObject
     {
         public Vector3 Size { get; set; }
-        private const float Epsilon = 0.00001f;
+        private const float Epsilon = 1e-6f; 
         
         public override HitResult? Hit(Ray r)
         {
@@ -140,67 +139,65 @@ namespace ComputerGraphics.RayTracing.Entities.Entities
             #endregion
             
             var intersectionDistance = tMin;
-
+            
             var point = r.Direction * intersectionDistance + r.Origin;
-            var normal = GetNormal(point);
+            var normal = GetNormal(point, r);
             return new HitResult(){T = intersectionDistance, P = point, Normal = normal};
         }
 
-        private Vector3 GetNormal(Vector3 point)
+        private Vector3 GetNormal(Vector3 point, Ray ray)
         {
-            var boxCenter = Vector3.Transform(new Vector3(Size.X / 2, Size.Y / 2, Size.Z / 2), GetTransformationMatrix());
+            Matrix4x4.Invert(GetTransformationMatrix(), out var invertedTransformation);
+            var invertedPoint = Vector3.Transform(point, invertedTransformation);
+            
+            var boxCenter = new Vector3(Size.X / 2, Size.Y / 2, Size.Z / 2);
             var boxPlanesCenters = GetBoxPlanesCenters();
 
             var normal = Vector3.Zero;
+            var closestPlane = float.MaxValue;
             foreach (var boxPlaneCenter in boxPlanesCenters)
             {
-                //Console.WriteLine(boxCenter);
-                //Console.WriteLine(point - boxPlaneCenter);
-               // Console.WriteLine(boxCenter - boxPlaneCenter);
-                var dot = Vector3.Dot(boxCenter - boxPlaneCenter, point - boxPlaneCenter);
-                if (MathF.Abs(dot) < Epsilon)
+                var dot = Vector3.Dot(boxPlaneCenter - boxCenter, invertedPoint - boxPlaneCenter);
+                var dotAbs = MathF.Abs(dot);
+                var distToPlane = (boxPlaneCenter - ray.Origin).Length();
+                
+                if (dotAbs < Epsilon && closestPlane > distToPlane)
                 {
+                    closestPlane = distToPlane;
                     normal = Vector3.Normalize(boxPlaneCenter - boxCenter);
                 }
             }
 
-            return normal;
+            return Vector3.Normalize(Vector3.Transform(normal, GetRotationMatrix()));
         }
 
         private IEnumerable<Vector3> GetBoxPlanesCenters()
         {
-            var resultList = new List<Vector3>();
-            
-            resultList.Add(Vector3.Transform(new Vector3(Size.X/2, Size.Y/2, 0f), GetTransformationMatrix()));
-            resultList.Add(Vector3.Transform(new Vector3(Size.X/2, Size.Y/2, Size.Z), GetTransformationMatrix()));
-            
-            resultList.Add(Vector3.Transform(new Vector3(0, Size.Y/2, Size.Z/2), GetTransformationMatrix()));
-            resultList.Add(Vector3.Transform(new Vector3(Size.X, Size.Y/2, Size.Z/2), GetTransformationMatrix()));
-            
-            resultList.Add(Vector3.Transform(new Vector3(Size.X/2, 0, Size.Z/2), GetTransformationMatrix()));
-            resultList.Add(Vector3.Transform(new Vector3(Size.X/2, Size.Y, Size.Z/2), GetTransformationMatrix()));
-
+            var resultList = new List<Vector3>
+            {
+                new Vector3(Size.X / 2, Size.Y / 2, 0f),
+                new Vector3(Size.X / 2, Size.Y / 2, Size.Z),
+                new Vector3(0, Size.Y / 2, Size.Z / 2),
+                new Vector3(Size.X, Size.Y / 2, Size.Z / 2),
+                new Vector3(Size.X / 2, 0, Size.Z / 2),
+                new Vector3(Size.X / 2, Size.Y, Size.Z / 2)
+            };
             return resultList;
         }
         
-        private Matrix4x4 GetTransitionMatrix()
+        
+        private Matrix4x4 GetRotationMatrix()
         {
             return new TransposedTransformationMatrixBuilder()
-                .MoveX(Transform.Position.X)
-                .MoveY(Transform.Position.Y)
-                .MoveZ(Transform.Position.Z)
+                .Rotate(Transform.Rotation)
                 .Build();
         }
         
         private Matrix4x4 GetTransformationMatrix()
         {
             return new TransposedTransformationMatrixBuilder()
-                .MoveX(Transform.Position.X)
-                .MoveY(Transform.Position.Y)
-                .MoveZ(Transform.Position.Z)
-                .RotateX(Transform.Rotation.X)
-                .RotateY(Transform.Rotation.Y)
-                .RotateZ(Transform.Rotation.Z)
+                .Move(Transform.Position)
+                .Rotate(Transform.Rotation)
                 .Build();
         }
     }
