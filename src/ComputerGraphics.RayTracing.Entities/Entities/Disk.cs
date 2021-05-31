@@ -35,8 +35,14 @@ namespace ComputerGraphics.RayTracing.Entities.Entities
             var diskCenterToIntersectionPoint = (intersectionPoint - planePosition).Length();
 
             return diskCenterToIntersectionPoint <= Radius
-                ? new HitResult {Normal = normal, P = intersectionPoint, T = t}
+                ? new HitResult {Normal = normal, P = intersectionPoint, T = t, Material = Material}
                 : null;
+        }
+
+        public override float PdfValue(in Vector3 o, in Vector3 v)
+        {
+            
+            return base.PdfValue(in o, in v);
         }
     }
 }

@@ -4,6 +4,6 @@ namespace ComputerGraphics.RayTracing.Core.Interfaces
 {
     public interface IRayProvider
     {
-        Ray GetRay(int x, int y);
+        Ray GetRay(float x, float y);
     }
 }

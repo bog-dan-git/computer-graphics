@@ -13,7 +13,7 @@ namespace ComputerGraphics.RayTracing.Implementation.Services
         public CameraRayProvider(ICameraProvider cameraProvider, IScreenProvider screenProvider) =>
             (_cameraProvider, _screenProvider) = (cameraProvider, screenProvider);
 
-        public Ray GetRay(int x, int y)
+        public Ray GetRay(float x, float y)
         {
             int width = _screenProvider.Width;
             int height = _screenProvider.Height;

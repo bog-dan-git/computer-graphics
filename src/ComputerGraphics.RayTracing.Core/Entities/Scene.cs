@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using ComputerGraphics.RayTracing.Core.Entities.Cameras;
 using ComputerGraphics.RayTracing.Core.Entities.Lights;
 using ComputerGraphics.RayTracing.Core.Entities.Materials;
 using ComputerGraphics.RayTracing.Core.Entities.SceneObjects;
-using ComputerGraphics.RayTracing.Core.Interfaces;
 
 namespace ComputerGraphics.RayTracing.Core.Entities
 {
