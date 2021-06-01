@@ -8,7 +8,6 @@ namespace ComputerGraphics.RayTracing.Implementation
     {
         protected override void LoadDependencies()
         {
-            Bind<ICameraProvider>().ToSingleton<StaticCameraProvider>();
             Bind<IScreenProvider>().ToSingleton<DefaultScreenProvider>();
             Bind<IRayProvider>().ToSingleton<CameraRayProvider>();
             Bind<IRayTracer>().To<MultiThreadedRayTracer>();

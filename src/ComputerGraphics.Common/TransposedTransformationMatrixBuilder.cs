@@ -103,7 +103,7 @@ namespace ComputerGraphics.Common
             return this;
         }
 
-        public TransposedTransformationMatrixBuilder Move(Vector3 transition) => MoveX(transition.X).MoveY(transition.Y).MoveY(transition.Z);
+        public TransposedTransformationMatrixBuilder Move(Vector3 transition) => MoveX(transition.X).MoveY(transition.Y).MoveZ(transition.Z);
 
         public TransposedTransformationMatrixBuilder Rotate(Vector3 rotation) => RotateX(rotation.X).RotateY(rotation.Y).RotateZ(rotation.Z);
 

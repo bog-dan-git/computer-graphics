@@ -29,7 +29,7 @@ namespace ComputerGraphics.SceneLoader.Tests
             Assert.Single(mappedScene.Cameras);
             var camera = mappedScene.Cameras.First();
             Assert.IsType<PerspectiveCamera>(camera);
-            Assert.Equal(60f, ((PerspectiveCamera) camera).Fov);
+            Assert.Equal(60f, ((PerspectiveCamera) camera).HFov);
         }
     }
 }
