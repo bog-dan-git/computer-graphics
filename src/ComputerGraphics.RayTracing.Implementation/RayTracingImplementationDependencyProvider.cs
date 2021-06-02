@@ -4,11 +4,10 @@ using ComputerGraphics.RayTracing.Implementation.Services;
 
 namespace ComputerGraphics.RayTracing.Implementation
 {
-    public class RayTracingImplementationProvider : Provider
+    public class RayTracingImplementationDependencyProvider : DependencyProvider
     {
         protected override void LoadDependencies()
         {
-            Bind<ICameraProvider>().ToSingleton<StaticCameraProvider>();
             Bind<IScreenProvider>().ToSingleton<DefaultScreenProvider>();
             Bind<IRayProvider>().ToSingleton<CameraRayProvider>();
             Bind<IRayTracer>().To<MultiThreadedRayTracer>();

@@ -4,12 +4,13 @@ using System.Linq;
 using System.Numerics;
 using ComputerGraphics.Common;
 using ComputerGraphics.RayTracing.Core.Entities;
+using ComputerGraphics.RayTracing.Core.Entities.SceneObjects;
 using ComputerGraphics.RayTracing.Core.Interfaces;
 using ComputerGraphics.RayTracing.Entities.Collections;
 
 namespace ComputerGraphics.RayTracing.Entities.Entities
 {
-    public class Mesh : IHittable, ITransformable
+    public class Mesh : SceneObject, ITransformable
     {
         private readonly IEnumerable<Triangle> _triangles;
         private readonly KDTree _tree;
@@ -29,7 +30,18 @@ namespace ComputerGraphics.RayTracing.Entities.Entities
             }
         }
 
-        public HitResult? Hit(Ray r) => _tree.Traverse(r);
+        public override HitResult? Hit(Ray r)
+        {
+            var result = _tree.Traverse(r);
+            if (result.HasValue)
+            {
+                var hitResult = result.Value;
+                hitResult.Material = Material;
+                return hitResult;
+            }
+
+            return null;
+        }
 
         /// <summary>
         /// Scales object approximately to fit in 10x10 box, and centers it to approximately (0,0,10) 
@@ -51,13 +63,17 @@ namespace ComputerGraphics.RayTracing.Entities.Entities
             var maxValue = new[] {maxX, maxY, maxZ}.Max();
             var scale = 10 / maxValue;
             Transform(new TransposedTransformationMatrixBuilder()
+                .RotateY(MathF.PI)
                 .MoveX(-averageX)
                 .MoveY(-averageY)
                 .MoveZ(-averageZ)
                 .ScaleX(scale)
                 .ScaleY(scale)
                 .ScaleZ(scale)
-                .MoveZ(10)
+                .ScaleX(0.2f)
+                .ScaleY(0.2f)
+                .ScaleZ(0.2f)
+                .MoveZ(5)
                 .Build());
         }
     }

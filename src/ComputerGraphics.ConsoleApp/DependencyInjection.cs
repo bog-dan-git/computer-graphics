@@ -2,7 +2,7 @@
 
 namespace ComputerGraphics.ConsoleApp
 {
-    public class DependencyInjection : Provider
+    public class DependencyInjection : DependencyProvider
     {
         protected override void LoadDependencies()
         {

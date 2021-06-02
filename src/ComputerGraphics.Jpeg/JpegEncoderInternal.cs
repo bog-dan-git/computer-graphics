@@ -244,7 +244,7 @@ namespace ComputerGraphics.Jpeg
             {
                 bitWriter.Write(id);
                 bitWriter.Write(0x11);
-                bitWriter.Write(id == 1 ? 0 : 1);
+                bitWriter.Write((byte) (id == 1 ? 0 : 1));
             }
 
             WriteLuminanceAndChrominance(bitWriter);
@@ -262,7 +262,7 @@ namespace ComputerGraphics.Jpeg
             {
                 bitWriter.Write(id);
 
-                bitWriter.Write(id == 1 ? 0x00 : 0x11);
+                bitWriter.Write((byte) (id == 1 ? 0x00 : 0x11));
             }
 
             bitWriter.Write(0);

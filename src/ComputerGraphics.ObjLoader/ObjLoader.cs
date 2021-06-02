@@ -48,8 +48,6 @@ namespace ComputerGraphics.ObjLoader
             var resultObject = new Object3D();
 
             resultObject.Faces = _resultFaces;
-            resultObject.Normals = _resultNormals;
-            resultObject.Textures = new List<Triangle>();
 
             return resultObject;
         }
@@ -71,7 +69,7 @@ namespace ComputerGraphics.ObjLoader
             vector.Y = float.Parse(line[2], CultureInfo.InvariantCulture.NumberFormat);
             vector.Z = float.Parse(line[3], CultureInfo.InvariantCulture.NumberFormat);
 
-            _normalsList.Add(vector);
+            _normalsList.Add(Vector3.Normalize(vector));
         }
 
         private void ReadFace(string[] line)
@@ -92,23 +90,21 @@ namespace ComputerGraphics.ObjLoader
 
             for (var i = 0; i < vertexIndexList.Count - 2; i++)
             {
-                var vertexTriangle = new Triangle();
-                var normalsTriangle = new Triangle();
-
-                vertexTriangle.A = _vertexList[vertexIndexList[0] - 1];
-                vertexTriangle.B = _vertexList[vertexIndexList[i + 1] - 1];
-                vertexTriangle.C = _vertexList[vertexIndexList[i + 2] - 1];
-                
-                _resultFaces.Add(vertexTriangle);
+                var vertexTriangle = new Triangle
+                {
+                    A = _vertexList[vertexIndexList[0] - 1],
+                    B = _vertexList[vertexIndexList[i + 1] - 1],
+                    C = _vertexList[vertexIndexList[i + 2] - 1]
+                };
 
                 if (normalsIndexList.Count == 3)
                 {
-                    normalsTriangle.A = _normalsList[normalsIndexList[0] - 1];
-                    normalsTriangle.B = _normalsList[normalsIndexList[i + 1] - 1];
-                    normalsTriangle.C = _normalsList[normalsIndexList[i + 2] - 1];
-                
-                    _resultNormals.Add(normalsTriangle);
+                    vertexTriangle.NormalA = _normalsList[normalsIndexList[0] - 1];
+                    vertexTriangle.NormalB = _normalsList[normalsIndexList[i + 1] - 1];
+                    vertexTriangle.NormalC = _normalsList[normalsIndexList[i + 2] - 1];
                 }
+                
+                _resultFaces.Add(vertexTriangle);
             }
         }
     }
