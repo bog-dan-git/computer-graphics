@@ -63,6 +63,8 @@ namespace ComputerGraphics.RayTracing.Entities.Entities
             var maxValue = new[] {maxX, maxY, maxZ}.Max();
             var scale = 10 / maxValue;
             Transform(new TransposedTransformationMatrixBuilder()
+                .RotateX(-MathF.PI / 2)
+                // .RotateY(MathF.PI)
                 .MoveX(-averageX)
                 .MoveY(-averageY)
                 .MoveZ(-averageZ)
@@ -72,7 +74,7 @@ namespace ComputerGraphics.RayTracing.Entities.Entities
                 .ScaleX(0.2f)
                 .ScaleY(0.2f)
                 .ScaleZ(0.2f)
-                .MoveZ(3)
+                .MoveZ(5)
                 .Build());
         }
     }

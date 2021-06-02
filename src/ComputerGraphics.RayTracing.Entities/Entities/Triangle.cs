@@ -101,7 +101,7 @@ namespace ComputerGraphics.RayTracing.Entities.Entities
                     if (t < tMin || t > tMax)
                     {
                         return null;
-                    } 
+                    }
                 }
 
                 return null;
@@ -117,9 +117,7 @@ namespace ComputerGraphics.RayTracing.Entities.Entities
             var s3 = A - C;
             vToP = p - C;
             if (Vector3.Dot(Vector3.Cross(s3, vToP), normal) < 0) return null;
-            var hitResult = new HitResult();
-            hitResult.T = t;
-            hitResult.P = p;
+            var hitResult = new HitResult {T = t, P = p};
             if (nDotDir > 0)
             {
                 hitResult.Normal = -normal;
@@ -130,8 +128,11 @@ namespace ComputerGraphics.RayTracing.Entities.Entities
             }
 
             hitResult.Material = Material;
+            if (!NormalA.Equals(Vector3.Zero) && !NormalB.Equals(Vector3.Zero) && !NormalC.Equals(Vector3.Zero))
+            {
+                hitResult.Normal = CalculateBarycentricNormal(hitResult.P);
+            }
             return hitResult;
-
         }
 
         private Vector3 CalculateBarycentricNormal(Vector3 point)

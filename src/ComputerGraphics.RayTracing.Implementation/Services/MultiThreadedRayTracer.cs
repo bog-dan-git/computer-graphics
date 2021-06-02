@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
 using ComputerGraphics.RayTracing.Core.Entities;
@@ -10,18 +11,18 @@ namespace ComputerGraphics.RayTracing.Implementation.Services
     public class MultiThreadedRayTracer : IRayTracer
     {
         private readonly IScreenProvider _screen;
-        private readonly IRayProvider _rayProvider;
-        private const int SamplesPerPixel = 100;
+        // private readonly IRayProvider _rayProvider;
+        private const int SamplesPerPixel = 1000;
 
-        public MultiThreadedRayTracer(IScreenProvider screen,
-            IRayProvider rayProvider)
+        public MultiThreadedRayTracer(IScreenProvider screen)
         {
             _screen = screen;
-            _rayProvider = rayProvider;
         }
 
         public Vector3[,] Trace(Scene scene)
         {
+            var camera = scene.Cameras.First();
+            var provider = new CameraRayProvider(camera, new DefaultScreenProvider());
             int width = _screen.Width;
             int height = _screen.Height;
             var result = new Vector3[width, height];
@@ -34,8 +35,8 @@ namespace ComputerGraphics.RayTracing.Implementation.Services
 
                     for (int s = 0; s < SamplesPerPixel; s++)
                     {
-                        var ray = _rayProvider.GetRay(i + (float)random.Next(), j + (float)random.NextDouble());
-                        var color = RayColor(ray, new Vector3(.1f, .1f, .1f), scene, 50);
+                        var ray = provider.GetRay(i + (float) random.Next(), j + (float) random.NextDouble());
+                        var color = RayColor(ray, scene.BackgroundColor, scene, 50);
                         resultColor += color;
                     }
 
@@ -58,13 +59,12 @@ namespace ComputerGraphics.RayTracing.Implementation.Services
             if (hitResult is null)
             {
                 return background;
-            } 
+            }
 
-            // var mesh = scene.SceneObjects.First(_ => _.Id == 2);
+            // var mesh = scene.SceneObjects.First(_ => _.Id == 3);
             // var meshHit = mesh.Hit(r);
             // if (meshHit.HasValue && meshHit.Value.Equals(hitResult.Value))
             // {
-                // Debug.Assert(true);
                 // return (Vector3.Normalize(meshHit.Value.Normal));
             // }
 
@@ -72,6 +72,11 @@ namespace ComputerGraphics.RayTracing.Implementation.Services
             var scattered = hitResult.Value.Material.Scatter(r, hitResult.Value, out var scatter);
             if (!scattered)
             {
+                if (depth == 50)
+                {
+                    return Vector3.Normalize(emitted);
+                }
+
                 return emitted;
             }
 
@@ -79,7 +84,7 @@ namespace ComputerGraphics.RayTracing.Implementation.Services
             {
                 return scatter.Attenuation * RayColor(scatter.SpecularRay, background, scene, depth - 1);
             }
-            
+
             var p = scatter.Pdf;
 
 

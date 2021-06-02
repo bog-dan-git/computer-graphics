@@ -146,7 +146,7 @@ namespace ComputerGraphics.RayTracing.Entities.Entities
             var intersectionDistance = tMin;            
             var point = r.Direction * intersectionDistance + r.Origin;
             var normal = GetNormal(point, r);
-            return new HitResult(){T = intersectionDistance, P = point, Normal = normal, Material = Material};
+            return new HitResult(){T = intersectionDistance, P = point, Normal = -normal, Material = Material};
         }
 
         private Vector3 GetNormal(Vector3 point, Ray ray)

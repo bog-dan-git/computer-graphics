@@ -9,7 +9,8 @@ namespace ComputerGraphics.RayTracing.Entities.Entities
 {
     public class Sphere : SceneObject
     {
-        public float Radius { get; set; }
+        // To not to spend whole night debugging
+        public float Radius { get; set; } = 1;
 
         public override HitResult? Hit(Ray r)
         {

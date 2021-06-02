@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Numerics;
 using ComputerGraphics.RayTracing.Core.Entities.Pdfs;
-using ComputerGraphics.RayTracing.Core.Entities.Textures;
 
 namespace ComputerGraphics.RayTracing.Core.Entities.Materials
 {
