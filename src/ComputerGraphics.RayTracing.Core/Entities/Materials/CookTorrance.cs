@@ -4,8 +4,10 @@ using ComputerGraphics.RayTracing.Core.Entities.Pdfs;
 
 namespace ComputerGraphics.RayTracing.Core.Entities.Materials
 {
+    // TODO: debug
     public class CookTorrance : Material
     {
+        
         private float _roughness;
         private float _metallic;
         private float _ior;
@@ -25,11 +27,6 @@ namespace ComputerGraphics.RayTracing.Core.Entities.Materials
 
             _metallic = metallic;
             _ior = ior;
-        }
-
-        public override bool Scatter(Ray inRay, HitResult result, out Vector3 attenuation, out Ray scattered)
-        {
-            throw new System.NotImplementedException();
         }
 
         public override float ScatteringPdf(in Ray ray, in HitResult hitResult, in Ray scattered)

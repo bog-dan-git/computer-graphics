@@ -3,6 +3,7 @@ using System.Numerics;
 
 namespace ComputerGraphics.RayTracing.Core.Entities.Pdfs
 {
+    // TODO: debug
     public class GgxPdf : Pdf
     {
         private readonly OrthonormalBasis _onb;

@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Numerics;
 using ComputerGraphics.Common;
 using ComputerGraphics.RayTracing.Core.Entities;
 using ComputerGraphics.RayTracing.Core.Entities.SceneObjects;
@@ -35,7 +36,8 @@ namespace ComputerGraphics.RayTracing.Entities.Entities
 
             return new HitResult
             {
-                Normal = normal, P = intersectionPoint, T = t, Material = Material
+                Normal = normal, P = intersectionPoint, T = t, Material = Material,
+                TextureCoordinates = new Vector2(MathF.Floor(intersectionPoint.X), MathF.Floor(intersectionPoint.Y))
             };
         }
     }

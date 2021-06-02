@@ -15,7 +15,7 @@ namespace ComputerGraphics.RayTracing.Core.Entities.Textures
         }
         public override Vector3 ValueAt(float u, float v, Vector3 p)
         {
-            var sines = MathF.Sin(10 * p.X) * MathF.Sin(10 * p.Y) * MathF.Sin(10 * p.Z);
+            var sines = MathF.Sin(40 * u) * MathF.Sin(40 * v);
             if (sines < 0)
             {
                 return Odd.ValueAt(u, v, p);

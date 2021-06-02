@@ -2,7 +2,7 @@
 {
     public class RenderOptions
     {
-        public static RenderOptions Default = new RenderOptions()
+        public static readonly RenderOptions Default = new RenderOptions()
         {
             CameraId = 0,
             Height = 1280,

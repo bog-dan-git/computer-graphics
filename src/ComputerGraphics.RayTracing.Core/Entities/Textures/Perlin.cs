@@ -5,6 +5,7 @@ using ComputerGraphics.Common;
 
 namespace ComputerGraphics.RayTracing.Core.Entities.Textures
 {
+    // TODO: debug
     public class Perlin
     {
         private Vector3[] RanVec { get; set; }

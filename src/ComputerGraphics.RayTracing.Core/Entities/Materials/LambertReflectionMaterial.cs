@@ -10,21 +10,7 @@ namespace ComputerGraphics.RayTracing.Core.Entities.Materials
     {
         public Texture Albedo { get; set; }
         public Vector3 Color { get; set; }
-
-        public sealed override bool Scatter(Ray inRay, HitResult result, out Vector3 attenuation, out Ray scattered)
-        {
-            var scatterDirection = result.Normal + Vector3Extensions.RandomInUnitSphere();
-            if (scatterDirection.NearZero())
-            {
-                scatterDirection = result.Normal;
-            }
-
-            scattered = new Ray(result.P, scatterDirection);
-            attenuation = Color;
-            return true;
-        }
-
-
+        
         public sealed override bool Scatter(in Ray inRay, in HitResult hitResult, out ScatterResult scatter)
         {
             scatter = new ScatterResult

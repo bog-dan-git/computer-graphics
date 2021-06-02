@@ -8,11 +8,6 @@ namespace ComputerGraphics.RayTracing.Core.Entities.Materials
     {
         public float RefractionIndex { get; set; }
 
-        public override bool Scatter(Ray inRay, HitResult result, out Vector3 attenuation, out Ray scattered)
-        {
-            throw new NotImplementedException();
-        }
-
         public override bool Scatter(in Ray inRay, in HitResult hitResult, out ScatterResult scatter)
         {
             scatter = new ScatterResult {IsSpecular = true, Attenuation = new Vector3(1, 1, 1)};
@@ -47,7 +42,7 @@ namespace ComputerGraphics.RayTracing.Core.Entities.Materials
         private static float Reflectance(float cosine, float refIndex)
         {
             var r0 = (1f - refIndex) / (1f + refIndex);
-            r0 = r0 * r0;
+            r0 *= r0;
             return r0 + (1 - r0) * MathF.Pow((1 - cosine), 5);
         }
     }

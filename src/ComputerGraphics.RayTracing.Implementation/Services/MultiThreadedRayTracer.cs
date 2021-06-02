@@ -8,23 +8,18 @@ using ComputerGraphics.RayTracing.Core.Interfaces;
 
 namespace ComputerGraphics.RayTracing.Implementation.Services
 {
-    public class MultiThreadedRayTracer : IRayTracer
+    internal class MultiThreadedRayTracer : IRayTracer
     {
-        private readonly IScreenProvider _screen;
-        // private readonly IRayProvider _rayProvider;
-        private const int SamplesPerPixel = 1000;
-
-        public MultiThreadedRayTracer(IScreenProvider screen)
-        {
-            _screen = screen;
-        }
+        private const int SamplesPerPixel = 100;
+        private const int Depth = 50;
 
         public Vector3[,] Trace(Scene scene)
         {
+            // var camera = scene.Cameras.First(camera1 => camera1.Id == scene.RenderOptions.CameraId);
             var camera = scene.Cameras.First();
             var provider = new CameraRayProvider(camera, new DefaultScreenProvider());
-            int width = _screen.Width;
-            int height = _screen.Height;
+            int width = scene.RenderOptions.Width;
+            int height = scene.RenderOptions.Height;
             var result = new Vector3[width, height];
             var random = new Random();
             Parallel.For(0, width, i =>
@@ -36,7 +31,7 @@ namespace ComputerGraphics.RayTracing.Implementation.Services
                     for (int s = 0; s < SamplesPerPixel; s++)
                     {
                         var ray = provider.GetRay(i + (float) random.Next(), j + (float) random.NextDouble());
-                        var color = RayColor(ray, scene.BackgroundColor, scene, 50);
+                        var color = RayColor(ray, scene.BackgroundColor, scene, Depth);
                         resultColor += color;
                     }
 
@@ -51,7 +46,7 @@ namespace ComputerGraphics.RayTracing.Implementation.Services
         {
             if (depth <= 0)
             {
-                return Vector3.UnitZ;
+                return Vector3.Zero;
             }
 
             var hitResult = scene.SceneObjects.Hit(r);
@@ -61,18 +56,12 @@ namespace ComputerGraphics.RayTracing.Implementation.Services
                 return background;
             }
 
-            // var mesh = scene.SceneObjects.First(_ => _.Id == 3);
-            // var meshHit = mesh.Hit(r);
-            // if (meshHit.HasValue && meshHit.Value.Equals(hitResult.Value))
-            // {
-                // return (Vector3.Normalize(meshHit.Value.Normal));
-            // }
-
             var emitted = hitResult.Value.Material.Emitted();
             var scattered = hitResult.Value.Material.Scatter(r, hitResult.Value, out var scatter);
             if (!scattered)
             {
-                if (depth == 50)
+                // we need to normalize color for light sources (as is does not fit in [0,0,0] - [1,1,1] range
+                if (depth == Depth)
                 {
                     return Vector3.Normalize(emitted);
                 }
@@ -85,6 +74,7 @@ namespace ComputerGraphics.RayTracing.Implementation.Services
                 return scatter.Attenuation * RayColor(scatter.SpecularRay, background, scene, depth - 1);
             }
 
+            // TODO: use mixed pdf here
             var p = scatter.Pdf;
 
 

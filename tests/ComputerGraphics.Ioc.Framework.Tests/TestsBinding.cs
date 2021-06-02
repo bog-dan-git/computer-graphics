@@ -2,7 +2,7 @@
 
 namespace ComputerGraphics.Ioc.Framework.Tests
 {
-    public class TestProviders : Provider
+    public class TestDependencyProviders : DependencyProvider
     {
         protected override void LoadDependencies()
         {

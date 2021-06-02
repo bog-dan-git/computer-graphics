@@ -4,7 +4,7 @@ using ComputerGraphics.RayTracing.Implementation.Services;
 
 namespace ComputerGraphics.RayTracing.Implementation
 {
-    public class RayTracingImplementationProvider : Provider
+    public class RayTracingImplementationDependencyProvider : DependencyProvider
     {
         protected override void LoadDependencies()
         {

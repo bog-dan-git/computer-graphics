@@ -7,14 +7,7 @@ namespace ComputerGraphics.RayTracing.Core.Entities.Materials
     public class SolidColorMaterial : Material
     {
         public Vector3 Color { get; set; }
-
-        public override bool Scatter(Ray inRay, HitResult result, out Vector3 attenuation, out Ray scattered)
-        {
-            attenuation = Color;
-            scattered = new Ray(inRay.Origin, Vector3.Zero);
-            return true;
-        }
-
+        
         public override bool Scatter(in Ray inRay, in HitResult hitResult, out ScatterResult scatter)
         {
             scatter = new ScatterResult

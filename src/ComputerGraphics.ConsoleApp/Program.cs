@@ -17,6 +17,7 @@ using ComputerGraphics.RayTracing.Core.Interfaces;
 using ComputerGraphics.RayTracing.Entities.Entities;
 using Camera = ComputerGraphics.RayTracing.Core.Entities.Cameras.Camera;
 using Scene = ComputerGraphics.RayTracing.Core.Entities.Scene;
+using Plane = ComputerGraphics.RayTracing.Entities.Entities;
 using LambertReflectionMaterial = ComputerGraphics.RayTracing.Core.Entities.Materials.LambertReflectionMaterial;
 
 namespace ComputerGraphics.ConsoleApp
@@ -25,7 +26,7 @@ namespace ComputerGraphics.ConsoleApp
     {
         private static readonly Assembly[] ModuleAssemblies =
         {
-            typeof(RayTracing.Implementation.RayTracingImplementationProvider).Assembly,
+            typeof(RayTracing.Implementation.RayTracingImplementationDependencyProvider).Assembly,
             typeof(IObjLoader).Assembly,
             typeof(Program).Assembly,
             typeof(ComputerGraphics.PluginLoader.DependencyInjection).Assembly,
@@ -68,7 +69,7 @@ namespace ComputerGraphics.ConsoleApp
                         Radius = 1f,
                         Material = new MetalMaterial()
                         {
-                            Color = new Vector3(.5f, 1f, 1f),
+                            Color = new Vector3(.8f, .8f, 0f),
                             Fuzz = 0,
                         }
                     },
@@ -76,7 +77,7 @@ namespace ComputerGraphics.ConsoleApp
                     {
                         Transform = new Transform()
                         {
-                            Position = new Vector3(2, 0, 6),
+                            Position = new Vector3(3, 0, 6),
                         },
                         Radius = 1f,
                         Material = new LambertReflectionMaterial()
@@ -111,7 +112,7 @@ namespace ComputerGraphics.ConsoleApp
                     },
                 },
 
-                BackgroundColor = Vector3.One,
+                BackgroundColor = new Vector3(0, 191f / 255, 1),
             };
             return scene;
         }
@@ -154,7 +155,7 @@ namespace ComputerGraphics.ConsoleApp
                         Radius = 1f,
                         Material = new MetalMaterial()
                         {
-                            Color = new Vector3(.5f, 1f, 1f),
+                            Color = new Vector3(.8f, .8f, 0f),
                             Fuzz = 0,
                         }
                     },
@@ -162,7 +163,7 @@ namespace ComputerGraphics.ConsoleApp
                     {
                         Transform = new Transform()
                         {
-                            Position = new Vector3(2, 0, 6),
+                            Position = new Vector3(3, 0, 6),
                         },
                         Radius = 1f,
                         Material = new LambertReflectionMaterial()
@@ -170,9 +171,8 @@ namespace ComputerGraphics.ConsoleApp
                             Albedo = new Checker(new SolidColor(new(1, 1, 0)), new SolidColor(new(0, 0, 1)))
                         }
                     },
-                    new Disk()
+                    new Plane.Plane()
                     {
-                        Radius = 10,
                         Transform = new Transform()
                         {
                             Position = new Vector3(0, -1, 0)
@@ -180,7 +180,7 @@ namespace ComputerGraphics.ConsoleApp
 
                         Material = new LambertReflectionMaterial()
                         {
-                            Albedo = new SolidColor(new(.3f, .3f, .3f))
+                            Albedo = new Checker(new SolidColor(Vector3.Zero), new SolidColor(Vector3.One))
                         }
                     },
                     new Sphere()
@@ -404,14 +404,14 @@ namespace ComputerGraphics.ConsoleApp
                     sceneObject,
                     new Sphere()
                     {
-                        Radius  = 1f,
+                        Radius = 1f,
                         Transform = new Transform()
                         {
-                            Position = new Vector3(3, 0, 3),
+                            Position = new Vector3(4, 0, 5),
                         },
-                        Material = new DielectricMaterial()
+                        Material = new MetalMaterial()
                         {
-                            RefractionIndex = 1.5f
+                            Color = new Vector3(1f, 1f, 1f)
                         }
                     },
                     new Disk()
@@ -468,14 +468,14 @@ namespace ComputerGraphics.ConsoleApp
 
             // sceneObject.Material = new NormalMaterial();
             // sceneObject.Material = new SolidColorMaterial() {Color = new (0, 0, 1)};
-            var scenes = new Scene[] {GetFirst(), GetSecond(), GetThird(), GetFourth(), GetFifthScene()};
+            var scenes = new Scene[] {GetSecond()};
             for (int i = 0; i < scenes.Length; i++)
             {
                 var result = rayTracer.Trace(scenes[i]);
                 var rgbs = ConvertToRgb(result);
                 var writer = new PpmEncoder();
                 var encoded = writer.Encode(rgbs);
-                await File.WriteAllBytesAsync($"result{i}.ppm", encoded);
+                await File.WriteAllBytesAsync($"result8.ppm", encoded);
                 Console.WriteLine($"{i}-th scene finished. Time: {DateTime.Now.ToLongTimeString()}");
             }
             // var result = rayTracer.Trace(new Scene()

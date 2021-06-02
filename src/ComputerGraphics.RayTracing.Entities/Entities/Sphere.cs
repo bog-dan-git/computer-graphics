@@ -9,7 +9,6 @@ namespace ComputerGraphics.RayTracing.Entities.Entities
 {
     public class Sphere : SceneObject
     {
-        // To not to spend whole night debugging
         public float Radius { get; set; } = 1;
 
         public override HitResult? Hit(Ray r)
@@ -41,40 +40,8 @@ namespace ComputerGraphics.RayTracing.Entities.Entities
             var outwardNormal = (res.P - Transform.Position)/ Radius;
             var frontFace = Vector3.Dot(r.Direction, outwardNormal) < 0;
             res.Normal = frontFace ? outwardNormal : -outwardNormal;
-            // res.Normal = outwardNormal;
-            res.TextureCoordinates = GetSphereTextureCoordinates(outwardNormal);
+            res.TextureCoordinates = GetSphereTextureCoordinates(res.Normal);
             return res;
-
-            // var k = r.Origin - Transform.Position;
-            // var b = Vector3.Dot(k, r.Direction);
-            // var c = Vector3.Dot(k, k) - Radius * Radius;
-            // var d = b * b - c;
-            //
-            // if (d >= 0)
-            // {
-            //     var sqrt = MathF.Sqrt(d);
-            //     var t1 = -b + sqrt;
-            //     var t2 = -b - sqrt;
-            //
-            //     var minT = MathF.Min(t1, t2);
-            //     var maxT = MathF.Max(t1, t2);
-            //
-            //     var t = (minT >= 0) ? minT : maxT;
-            //
-            //     if (!(t > 0)) return null;
-            //     
-            //     var intersectionPoint = r.Direction * t + r.Origin;
-            //     var normal = intersectionPoint - Transform.Position;
-            //         
-            //     var hitResult = new HitResult();
-            //     hitResult.T = t;
-            //     hitResult.P = intersectionPoint;
-            //     hitResult.Normal = normal / Radius;
-            //     hitResult.Material = Material;
-            //     return hitResult;
-            // }
-            //
-            // return null;
         }
 
         public override Vector3 Random(in Vector3 o)
@@ -99,7 +66,7 @@ namespace ComputerGraphics.RayTracing.Entities.Entities
         }
 
 
-        private static Vector2 GetSphereTextureCoordinates(in Vector3 point)
+        private Vector2 GetSphereTextureCoordinates(in Vector3 point)
         {
             var theta = MathF.Acos(-point.Y);
             var phi = MathF.Atan2(-point.Z, point.X) + MathF.PI;

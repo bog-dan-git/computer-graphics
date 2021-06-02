@@ -9,7 +9,7 @@ using ComputerGraphics.SceneLoader.Mapping;
 
 namespace ComputerGraphics.SceneLoader
 {
-    internal class DependencyInjection : Provider
+    internal class DependencyInjection : DependencyProvider
     {
         protected override void LoadDependencies()
         {

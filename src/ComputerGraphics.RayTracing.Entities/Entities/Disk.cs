@@ -8,16 +8,15 @@ namespace ComputerGraphics.RayTracing.Entities.Entities
     public class Disk : SceneObject
     {
         private Matrix4x4? _transformationMatrix;
-        public Matrix4x4 TransformationMatrix => _transformationMatrix ?? new TransposedTransformationMatrixBuilder()
-            .Move(Transform.Position)
-            .Rotate(Transform.Rotation)
-            .Build();
         private const float Epsilon = 0.00001f;
         public float Radius { get; set; }
         public override HitResult? Hit(Ray r)
         {
-
-            var transformationMatrix = TransformationMatrix;
+            _transformationMatrix ??= new TransposedTransformationMatrixBuilder()
+                .Move(Transform.Position)
+                .Rotate(Transform.Rotation)
+                .Build();
+            var transformationMatrix = _transformationMatrix.Value;
             var normal = new Vector3(transformationMatrix.M21, transformationMatrix.M22, transformationMatrix.M23);
             var planePosition = transformationMatrix.Translation;
 
