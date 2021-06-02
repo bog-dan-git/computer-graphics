@@ -92,5 +92,36 @@ paste it into `Plugins` folder. That's it.
 
 # Part 2. Ray tracer
 
-We've implement Ray Tracer with the intersection search optimization by the KD-Tree. You can find some of the rendered images below.
+We've implemented Ray Tracer with the intersection search optimization by the KD-Tree. You can find some of the rendered images below.
 ![Dragon and car](./img/dragon_car_example.jpg)
+
+# Part 3. Complex scenes, realistic lights and materials
+
+We've implemented procession of complex scenes.
+
+Implemented Scene Objects:
+- Mesh
+- Oriented Bounding Box
+- Sphere
+- Plane
+- Disk
+- Pyramid (WIP)
+
+Implemented Materials:
+- Dieletric
+- Lambert (supports textures)
+- Metal
+- Specular highlight (Cook-Torrance model WIP)
+
+Implemented Cameras:
+- Perspective
+- Orthographic
+
+You can find some of the rendered images below.
+
+![Day. 3 spheres](./img/part3_example1.jpg)
+![Night. 3 spheres](./img/part3_example2.jpg)
+![Glass cow and 2 spheres](./img/part3_example3.jpg)
+![Red cow and 2 spheres](./img/part3_example4.jpg)
+![Green Box](./img/part3_example5.jpg)
+![Dragon](./img/part3_example6.jpg)
