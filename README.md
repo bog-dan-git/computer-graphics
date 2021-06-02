@@ -92,6 +92,7 @@ paste it into `Plugins` folder. That's it.
 
 # Part 2. Ray tracer
 
+
 We've implemented Ray Tracer with the intersection search optimization by the KD-Tree. You can find some of the rendered images below.
 ![Dragon and car](./img/dragon_car_example.jpg)
 
