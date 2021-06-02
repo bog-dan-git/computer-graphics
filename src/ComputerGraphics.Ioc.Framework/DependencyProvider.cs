@@ -2,7 +2,7 @@
 
 namespace ComputerGraphics.Ioc.Framework
 {
-    public abstract class Provider
+    public abstract class DependencyProvider
     {
         internal readonly ICollection<ServiceDescription> ServiceDescriptions = new List<ServiceDescription>();
         protected IBinder<T> Bind<T>()

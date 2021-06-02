@@ -21,10 +21,10 @@ namespace ComputerGraphics.Ioc.Framework
             var descriptors = new Dictionary<Type, ServiceDescription>();
             foreach (var assembly in _assemblies)
             {
-                var types = assembly.GetTypes().Where(_ => _.BaseType == typeof(Provider));
+                var types = assembly.GetTypes().Where(_ => _.BaseType == typeof(DependencyProvider));
                 foreach (var type in types)
                 {
-                    var instance = Activator.CreateInstance(type) as Provider;
+                    var instance = Activator.CreateInstance(type) as DependencyProvider;
                     instance.LoadDependencies();
                     AddDependenciesToDictionary(descriptors, instance.ServiceDescriptions);
                 }

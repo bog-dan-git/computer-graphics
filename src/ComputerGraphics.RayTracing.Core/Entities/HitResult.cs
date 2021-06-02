@@ -1,4 +1,5 @@
 ﻿using System.Numerics;
+using ComputerGraphics.RayTracing.Core.Entities.Materials;
 
 namespace ComputerGraphics.RayTracing.Core.Entities
 {
@@ -16,5 +17,9 @@ namespace ComputerGraphics.RayTracing.Core.Entities
         /// Represents normal to surface
         /// </summary>
         public Vector3 Normal { get; set; }
+        
+        public Material Material { get; set; }
+        
+        public Vector2 TextureCoordinates { get; set; }
     }
 }

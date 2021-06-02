@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Numerics;
-using System.Reflection.Metadata.Ecma335;
 using ComputerGraphics.RayTracing.Core.Entities;
 using ComputerGraphics.RayTracing.Core.Entities.SceneObjects;
 using ComputerGraphics.RayTracing.Core.Interfaces;
@@ -12,12 +11,12 @@ namespace ComputerGraphics.RayTracing.Entities.Entities
         private Vector3 _boxMax;
         private Vector3 _boxMin;
 
-        private const float Epsilon = 1e-8f; 
-        
+        private const float Epsilon = 1e-8f;
+        private bool _doubleSided = false;
         public Vector3 NormalA { get; set; }
         public Vector3 NormalB { get; set; }
         public Vector3 NormalC { get; set; }
-        
+
         public Triangle(Vector3 a, Vector3 b, Vector3 c)
         {
             A = a;
@@ -39,47 +38,101 @@ namespace ComputerGraphics.RayTracing.Entities.Entities
         public Vector3 B { get; private set; }
         public Vector3 C { get; private set; }
 
+        // public override HitResult? Hit(Ray r)
+        // {
+        //     var v0v1 = B - A;
+        //     var v0v2 = C - A;
+        //     var pvec = Vector3.Cross(r.Direction, v0v2);
+        //     var det = Vector3.Dot(v0v1, pvec);
+        //     if (det is < Epsilon and > -Epsilon)
+        //     {
+        //         return null;
+        //     }
+        //
+        //     var invDet = 1f / det;
+        //     var tvec = r.Origin - A;
+        //     var u = Vector3.Dot(tvec, pvec) * invDet;
+        //     if (u is < 0 or > 1)
+        //     {
+        //         return null;
+        //     }
+        //
+        //     var qvec = Vector3.Cross(tvec, v0v1);
+        //     var v = Vector3.Dot(r.Direction, qvec) * invDet;
+        //     if (v < 0 || u + v > 1)
+        //     {
+        //         return null;
+        //     }
+        //
+        //     var f = Vector3.Dot(v0v2, qvec) * invDet;
+        //     var normal = Vector3.Normalize(Vector3.Cross(v0v2, v0v1));
+        //     var intersectionPoint = r.PointAt(f);
+        //     
+        //     if (!NormalA.Equals(Vector3.Zero) && !NormalB.Equals(Vector3.Zero) && !NormalC.Equals(Vector3.Zero))
+        //     {
+        //         normal = CalculateBarycentricNormal(intersectionPoint);
+        //     }
+        //
+        //     return new HitResult()
+        //     {
+        //         P = r.PointAt(f),
+        //         Normal = normal,
+        //         T = f,
+        //         Material = Material
+        //     };
+        // }
         public override HitResult? Hit(Ray r)
         {
-            var e1 = B - A;
-            var e2 = C - A;
-            var pvec = Vector3.Cross(r.Direction, e2);
-            var det = Vector3.Dot(e1, pvec);
-            if (det < float.Epsilon && det > -float.Epsilon)
+            var tMin = 0.00001;
+            var tMax = 999999;
+            var normal = Vector3.Normalize(Vector3.Cross(B - A, C - B));
+            var nDotDir = Vector3.Dot(r.Direction, normal);
+            if (nDotDir > 0 && !_doubleSided) return null;
+            if (MathF.Abs(nDotDir) < 0.00001) return null;
+
+            var d = -Vector3.Dot(normal, A);
+            var t = -(Vector3.Dot(normal, r.Origin) + d) / nDotDir;
+
+            if (t < tMin || t > tMax)
             {
+                if (_doubleSided)
+                {
+                    t = -t;
+                    if (t < tMin || t > tMax)
+                    {
+                        return null;
+                    }
+                }
+
                 return null;
             }
 
-            var invDet = 1 / det;
-            var tvec = r.Origin - A;
-            var u = Vector3.Dot(tvec, pvec) * invDet;
-            if (u < 0 || u > 1)
+            var p = r.PointAt(t);
+            var s1 = B - A;
+            var vToP = p - A;
+            if (Vector3.Dot(Vector3.Cross(s1, vToP), normal) < 0) return null;
+            var s2 = C - B;
+            vToP = p - B;
+            if (Vector3.Dot(Vector3.Cross(s2, vToP), normal) < 0) return null;
+            var s3 = A - C;
+            vToP = p - C;
+            if (Vector3.Dot(Vector3.Cross(s3, vToP), normal) < 0) return null;
+            var hitResult = new HitResult {T = t, P = p};
+            if (nDotDir > 0)
             {
-                return null;
+                hitResult.Normal = -normal;
+            }
+            else
+            {
+                hitResult.Normal = normal;
             }
 
-            var qvec = Vector3.Cross(tvec, e1);
-            var v = Vector3.Dot(r.Direction, qvec) * invDet;
-            if (v < 0 || u + v > 1)
-            {
-                return null;
-            }
-
-            var f = Vector3.Dot(e2, qvec) * invDet;
-            var normal = Vector3.Normalize(Vector3.Cross(e2, e1));
-            var intersectionPoint = r.PointAt(f);
-            
+            hitResult.Material = Material;
             if (!NormalA.Equals(Vector3.Zero) && !NormalB.Equals(Vector3.Zero) && !NormalC.Equals(Vector3.Zero))
             {
-                normal = CalculateBarycentricNormal(intersectionPoint);
+                hitResult.Normal = CalculateBarycentricNormal(hitResult.P);
             }
-            
-            return new HitResult()
-            {
-                P = intersectionPoint,
-                Normal = normal,
-                T = f
-            };
+            return hitResult;
         }
 
         private Vector3 CalculateBarycentricNormal(Vector3 point)
@@ -96,8 +149,8 @@ namespace ComputerGraphics.RayTracing.Entities.Entities
             var v = (d11 * d20 - d01 * d21) / denom;
             var w = (d00 * d21 - d01 * d20) / denom;
             var u = 1.0f - v - w;
-            var barNormal = u * NormalA + v * NormalB + w * NormalC; 
-            
+            var barNormal = u * NormalA + v * NormalB + w * NormalC;
+
             return barNormal;
         }
 

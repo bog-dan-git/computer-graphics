@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Numerics;
 using ComputerGraphics.Common;
 using ComputerGraphics.RayTracing.Core.Entities;
 using ComputerGraphics.RayTracing.Core.Entities.SceneObjects;
@@ -24,16 +25,20 @@ namespace ComputerGraphics.RayTracing.Entities.Entities
             {
                 return null;
             }
-            
+
             var t = Vector3.Dot(planePosition - r.Origin, normal) / denom;
             if (t < 0)
             {
                 return null;
             }
-            
+
             var intersectionPoint = r.Origin + r.Direction * t;
 
-            return new HitResult {Normal = normal, P = intersectionPoint, T = t};
+            return new HitResult
+            {
+                Normal = normal, P = intersectionPoint, T = t, Material = Material,
+                TextureCoordinates = new Vector2(MathF.Floor(intersectionPoint.X), MathF.Floor(intersectionPoint.Y))
+            };
         }
     }
 }

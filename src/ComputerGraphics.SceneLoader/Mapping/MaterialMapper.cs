@@ -15,9 +15,9 @@ namespace ComputerGraphics.SceneLoader.Mapping
                     Color = input.LambertReflection.Color is {} ? new Vector3((float) input.LambertReflection.Color.R,
                         (float) input.LambertReflection.Color.G, (float) input.LambertReflection.Color.B) : Vector3.One
                 },
-                SceneFormat.Material.MaterialOneofCase.SpecularReflection => new SpecularReflectionMaterial()
+                SceneFormat.Material.MaterialOneofCase.SpecularReflection => new DielectricMaterial()
                 {
-                    Eta = (float) input.SpecularReflection.Eta
+                    RefractionIndex = (float) input.SpecularReflection.Eta
                 },
                 SceneFormat.Material.MaterialOneofCase.None => throw new NotSupportedException(),
                 _ => throw new ArgumentOutOfRangeException()

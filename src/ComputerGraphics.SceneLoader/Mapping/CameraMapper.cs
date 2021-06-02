@@ -13,19 +13,20 @@ namespace ComputerGraphics.SceneLoader.Mapping
 
         public Camera Map(SceneFormat.Camera camera)
         {
-            Camera mappedCamera = camera.CameraCase switch
-            {
-                SceneFormat.Camera.CameraOneofCase.Orthographic => new OrthographicCamera(),
-                SceneFormat.Camera.CameraOneofCase.Perspective => new PerspectiveCamera()
-                {
-                    Fov = (float) camera.Perspective.Fov
-                },
-                SceneFormat.Camera.CameraOneofCase.None => throw new NotSupportedException(),
-                _ => throw new ArgumentOutOfRangeException(nameof(camera.CameraCase))
-            };
-            mappedCamera.Id = camera.Id;
-            mappedCamera.Transform = _transformMapper.Map(camera.Transform);
-            return mappedCamera;
+            // Camera mappedCamera = camera.CameraCase switch
+            // {
+                // SceneFormat.Camera.CameraOneofCase.Orthographic => new OrthographicCamera(),
+                // SceneFormat.Camera.CameraOneofCase.Perspective => new PerspectiveCamera()
+                // {
+                    // Fov = (float) camera.Perspective.Fov
+                // },
+                // SceneFormat.Camera.CameraOneofCase.None => throw new NotSupportedException(),
+                // _ => throw new ArgumentOutOfRangeException(nameof(camera.CameraCase))
+            // };
+            // mappedCamera.Id = camera.Id;
+            // mappedCamera.Transform = _transformMapper.Map(camera.Transform);
+            // return mappedCamera;
+            return null;
         }
     }
 }

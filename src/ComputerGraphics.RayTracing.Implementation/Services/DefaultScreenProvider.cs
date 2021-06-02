@@ -4,7 +4,7 @@ namespace ComputerGraphics.RayTracing.Implementation.Services
 {
     internal class DefaultScreenProvider : IScreenProvider
     {
-        public int Width => 1920;
-        public int Height => 1080;
+        public int Width => 1280;
+        public int Height => 720;
     }
 }

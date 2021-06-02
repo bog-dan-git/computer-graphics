@@ -1,6 +1,4 @@
-﻿using System;
-using System.Numerics;
-using ComputerGraphics.RayTracing.Core.Entities;
+﻿using ComputerGraphics.RayTracing.Core.Entities;
 using ComputerGraphics.RayTracing.Core.Entities.Cameras;
 using ComputerGraphics.RayTracing.Core.Interfaces;
 
@@ -13,11 +11,11 @@ namespace ComputerGraphics.RayTracing.Implementation.Services
 
         public CameraRayProvider(Camera camera, IScreenProvider screenProvider) => (_camera, _screenProvider) = (camera, screenProvider);
 
-        public Ray GetRay(int x, int y)
+        public Ray GetRay(float x, float y)
         {
             return _camera.GetRay(
-                (float) x / (_screenProvider.Width - 1),
-                (float) y / (_screenProvider.Height - 1)
+                x / (_screenProvider.Width - 1),
+                (_screenProvider.Height - y) / (_screenProvider.Height - 1)
                 );
         }
     }

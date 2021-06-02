@@ -1,24 +1,21 @@
 ﻿using System;
 using System.Numerics;
-using ComputerGraphics.Common;
 using ComputerGraphics.RayTracing.Core.Entities.Pdfs;
-using ComputerGraphics.RayTracing.Core.Entities.Textures;
 
 namespace ComputerGraphics.RayTracing.Core.Entities.Materials
 {
-    public class LambertReflectionMaterial : Material
+    public class SolidColorMaterial : Material
     {
-        public Texture Albedo { get; set; }
         public Vector3 Color { get; set; }
         
-        public sealed override bool Scatter(in Ray inRay, in HitResult hitResult, out ScatterResult scatter)
+        public override bool Scatter(in Ray inRay, in HitResult hitResult, out ScatterResult scatter)
         {
             scatter = new ScatterResult
             {
+                Attenuation = Color,
                 IsSpecular = false,
-                Attenuation = Albedo.ValueAt(hitResult.TextureCoordinates.X, hitResult.TextureCoordinates.Y,
-                    hitResult.P),
-                Pdf = new CosinePdf() {Basis = OrthonormalBasis.FromW(hitResult.Normal)}
+                Pdf = new CosinePdf() {Basis = OrthonormalBasis.FromW(hitResult.Normal)},
+                SpecularRay = new Ray(Vector3.Zero, Vector3.Zero)
             };
             return true;
         }
@@ -27,6 +24,11 @@ namespace ComputerGraphics.RayTracing.Core.Entities.Materials
         {
             var cosine = Vector3.Dot(hitResult.Normal, Vector3.Normalize(scattered.Direction));
             return cosine < 0 ? 0 : cosine / MathF.PI;
+        }
+
+        public override Vector3 Emitted()
+        {
+            return Color;
         }
     }
 }

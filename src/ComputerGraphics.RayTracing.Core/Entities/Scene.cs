@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
+using System.Numerics;
 using ComputerGraphics.RayTracing.Core.Entities.Cameras;
 using ComputerGraphics.RayTracing.Core.Entities.Lights;
 using ComputerGraphics.RayTracing.Core.Entities.Materials;
 using ComputerGraphics.RayTracing.Core.Entities.SceneObjects;
-using ComputerGraphics.RayTracing.Core.Interfaces;
 
 namespace ComputerGraphics.RayTracing.Core.Entities
 {
@@ -18,6 +17,8 @@ namespace ComputerGraphics.RayTracing.Core.Entities
         public IEnumerable<Material> Materials { get; set; }
         
         public RenderOptions RenderOptions { get; set; }
+        
+        public Vector3 BackgroundColor { get; set; }
 
         public Scene(IEnumerable<SceneObject> hittables) => SceneObjects = hittables;
 
