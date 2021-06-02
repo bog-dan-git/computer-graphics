@@ -98,7 +98,7 @@ We've implemented Ray Tracer with the intersection search optimization by the KD
 
 # Part 3. Complex scenes, realistic lights and materials
 
-We've implemented procession of complex scenes.
+We've implemented the processing of complex scenes.
 
 Implemented Scene Objects:
 - Mesh
